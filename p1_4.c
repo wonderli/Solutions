@@ -40,7 +40,9 @@ int main()
 //        int n1 = read(0, str1, 1024);
 //        printf("%s", str1);
         char str1[5] = {'I', ' ', 'm', ' ', 'u'};
+        char str2[10] = {'I', ' ', 'l','o','v','e', ' ', 'y','o','u'};
         printf("RESULT %s\n", insert_str(str1, 5));
+        printf("RESULT %s\n", insert_str(str2, 10));
 ;
 
 }
