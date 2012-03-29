@@ -26,7 +26,7 @@ List *createList() {
     return new;
 }
 
-int insertNode(List *list, Node *node, int pos) {
+int insertNode(List *list, int data, int pos) {
     int i = 0;
     if(list->head == NULL) {
         printf("\nError: list is empty\n");
@@ -34,6 +34,7 @@ int insertNode(List *list, Node *node, int pos) {
     }
     Node **nextptr;
     Node *current;
+    Node *node = createNode(data);
     current = list->head;
     while((current!= NULL) && (i != pos)) {
         nextptr = &current->next;
@@ -45,9 +46,10 @@ int insertNode(List *list, Node *node, int pos) {
     return TRUE;
 }
 
-int appendNode(List *list, Node *node) {
+int appendNode(List *list, int data) {
     Node **nextptr;
     Node *current;
+    Node *node = createNode(data);
     if(list->head == NULL) {
         list->head = node;
         return TRUE;
@@ -126,29 +128,24 @@ void printList(List *list) {
 
 
 int main() {
-    Node *a = createNode(29);
-    Node *b = createNode(23);
-    Node *c = createNode(32);
-    Node *d = createNode(1000);
-    Node *e = createNode(100);
     List *list = createList();
-    appendNode(list, a);
-    appendNode(list, b);
-    appendNode(list, c);
+    appendNode(list, 29);
+    appendNode(list, 23);
+    appendNode(list, 32);
     printList(list);
-    insertNode(list, d, 1);
+    insertNode(list, 1000, 1);
     printList(list);
-    //int search = 32;
-    //printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
-    //search = 999;
-    //printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
-    //search = 23;
-    //printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
+    int search = 32;
+    printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
+    search = 999;
+    printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
+    search = 23;
+    printf("\nSEARCH DATA %d, RESULT %d\n", search, searchData(list, search));
     deleteNode(list, 29);
     printList(list);
     deleteNode(list, 23);
     printList(list);
-    appendNode(list, e);
+    appendNode(list, 100);
     printList(list);
 
     return 0;
