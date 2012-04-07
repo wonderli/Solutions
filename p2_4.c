@@ -4,7 +4,7 @@
 void partition(List *list, int pivot) {
     Node *current = list->head;
     Node *runner = list->head;
-    while(runner->next != NULL) {
+    while(runner != NULL) {
         if(runner->data > pivot) {
             runner = runner->next;
         }
@@ -12,17 +12,20 @@ void partition(List *list, int pivot) {
             int tmp = current->data;
             current->data = runner->data;
             runner->data = tmp;
-            runner = runner->next;
-            current = current->next;
+            if(runner->next != NULL) {
+                runner = runner->next;
+                current = current->next;
+            }
+            else break;
         }
 
     }
-    if(runner->data < current->data) {
-        int tmp = current->data;
-            current->data = runner->data;
-            runner->data = tmp;
-
-    }
+//    if(runner->data < current->data) {
+//        int tmp = current->data;
+//            current->data = runner->data;
+//            runner->data = tmp;
+//
+//    }
 
 }
 
