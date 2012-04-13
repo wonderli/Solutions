@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 //#include "linklist.h"
-#define FALSE -1
+#define FALSE 0 
 #define TRUE 1
 typedef struct stackNode {
     struct stackNode *next;
