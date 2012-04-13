@@ -11,4 +11,10 @@ int main() {
     pop(stack);
     displayStack(stack);
     displayStackTop(stack);
+    clearStack(stack);
+    displayStack(stack);
+    for(i = 0; i < size; i++){
+        push(stack, i);
+    }
+    displayStack(stack);
 }

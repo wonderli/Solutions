@@ -73,6 +73,8 @@ void clearStack(Stack *stack){
         free(tmp);
     }
     stack->size = 0;
+    stack->base = NULL;
+    stack->top = NULL;
 }
 int getStackTop(Stack *stack){
 	if(stack->size == 0) {
@@ -93,6 +95,10 @@ void displayStack(Stack *stack){
 	StackNode *current = stack->base;
 	printf("\n*********************\n");
 	printf("Stack size is %d\n", stack->size);
+	if(stack->size == 0) {
+		printf("\nstack is empty\n");
+		return;
+	}
 	while(current->next != NULL){
 		printf("%d->", current->data);
 		current = current->next;
