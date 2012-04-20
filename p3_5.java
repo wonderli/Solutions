@@ -36,7 +36,14 @@ class p3_5{
         for(int i = 0; i < 20; i++) {
             p.in(i);
         }
+        for(int i = 0; i < 10; i++) {
+            System.out.println(p.out());
+        }
+        //System.out.println("Again");
         for(int i = 0; i < 20; i++) {
+            p.in(i);
+        }
+        for(int i = 0; i < 30; i++) {
             System.out.println(p.out());
         }
 
