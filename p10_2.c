@@ -59,13 +59,15 @@ int main() {
         *(s + i) = (char *)malloc(1024);
         *(new_s + i) = (char *)malloc(1024);
     }
+    int size = 7;
     strcpy(*(s + 0), "hello");
     strcpy(*(s + 1), "world");
     strcpy(*(s + 2), "dlrow");
     strcpy(*(s + 3), "drlow");
     strcpy(*(s + 4), "olleh");
-    print_string(s, 5);
-    //printf("\nRESULT %d\n", compare("a", "b"));
-    anagram_sort(s, new_s, 5);
-    print_string(new_s, 5);
+    strcpy(*(s + 5), "man");
+    strcpy(*(s + 6), "nam");
+    print_string(s, size);
+    anagram_sort(s, new_s, size);
+    print_string(new_s, size);
 }
