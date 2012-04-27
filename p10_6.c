@@ -6,20 +6,65 @@ typedef struct RESULT{
 } result;
 
 void search(int **matrix, int key, int first_row, int last_row, int first_col, int last_col, result *r){
-	int mid_row, mid_col;
-	mid_row = (first_row + last_row)/2;
-	mid_col = (first_col + last_col)/2;
-	if(*(*(matrix + mid_col) + mid_row) == key){
-		r->row = mid_row;
-		r->col = mid_col;
-		return;
+	int matrix_first_row_first_col = *(*(matrix + first_col) + first_row);
+	int matrix_first_row_last_col = *(*(matrix + last_col) + first_row);
+	int matrix_last_row_first_col = *(*(matrix + first_col) + last_row);
+	int matrix_last_row_last_col = *(*(matrix + last_col) + last_row);
+	if(matrix_first_row_first_col < key && matrix_first_row_last_col < key && matrix_last_row_first_col > key && matrix_last_row_last_col > key){
+		int mid_row = (first_row + last_row)/2;
+		int mid_col = (first_col + last_col)/2;
+		if(*(*(matrix + mid_col) + mid_row) == key){
+			r->row = mid_row;
+			r->col = mid_col;
+			return;
+		}
+		if(*(*(matrix + mid_col) + mid_row) > key) {
+			search(matrix, key, first_row, mid_row - 1, first_col, mid_col - 1, r);
+		}else if(*(*(matrix + mid_col) + mid_row) < key) {
+			search(matrix, key, mid_row, last_row, mid_col, last_col, r);
+		}
 	}
-	if(*(*(matrix + mid_col) + mid_row) > key) {
-		search(matrix, key, mid_row + 1, last_row, mid_col + 1, last_col, r);
-	}else if(*(*(matrix + mid_col) + mid_row) < key) {
-		search(matrix, key, first_row, mid_row, first_col, mid_col, r);
+	else if(matrix_first_row_first_col <= key && matrix_first_row_last_col >= key)
+	{
+		int mid_col = (first_col + last_col)/2;
+		if(*(*(matrix + mid_col) + first_row) == key){
+			r->row = first_row;
+			r->col = mid_col;
+			return;
+		}
+
+		if(*(*(matrix + mid_col) + first_row) > key) {
+			search(matrix, key, first_row, first_row, first_col, mid_col - 1, r);
+		}else if(*(*(matrix + mid_col) + first_row) < key) {
+			search(matrix, key, first_row, last_row, mid_col, last_col, r);
+		}
+		
+	}
+	else if(matrix_last_row_first_col <= key && matrix_last_row_last_col >= key)
+	{
+		int mid_col = (first_col + last_col)/2;
+		if(*(*(matrix + mid_col) + last_row) == key){
+			r->row = last_row;
+			r->col = mid_col;
+			return;
+		}
+
+		if(*(*(matrix + mid_col) + last_row) > key) {
+			search(matrix, key, last_row, last_row, first_col, mid_col - 1, r);
+		}else if(*(*(matrix + mid_col) + first_row) < key) {
+			search(matrix, key, last_row, last_row, mid_col, last_col, r);
+		}
+
 	}
 
+	else {
+		r->row = -1;
+		r->col = -1;
+		printf("\nDid not find the key %d\n", key);
+		return;
+	}
+	
+		
 }
 
 void print_matrix(int **matrix, int M, int N) {
@@ -50,14 +95,14 @@ int main(){
 		}
 	}
 	print_matrix(matrix, M, N);
-	int key = 5;
+	int key = 25;
 	int first_row = 0;
-	int last_row = N;
+	int last_row = N - 1;
 	int first_col = 0;
-	int last_col = M;
+	int last_col = M - 1;
 	result *r = (result *)malloc(sizeof(struct RESULT));
-	r->row = 0;
-	r->col = 0;
+	r->row = -1;
+	r->col = -1;
  	search(matrix, key, first_row, last_row, first_col, last_col, r);
-	printf("ROW: %d, COL: %d", r->row, r->col);
+	printf("\nROW: %d, COL: %d\n", r->row, r->col);
 }
