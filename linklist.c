@@ -60,6 +60,7 @@ int appendNode(List *list, int data) {
         nextptr = &current->next;
     }
     //current = node;
+	
     *nextptr = node;
     (*nextptr)->next = NULL;
     return TRUE;
