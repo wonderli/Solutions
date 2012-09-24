@@ -1,4 +1,5 @@
 //Chapter 9 Question 2
+
 public class Q2{
     public static int path(int matrix[][], int x, int y){
         if(x == 0) return matrix[0][y];
