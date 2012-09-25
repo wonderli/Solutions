@@ -31,9 +31,9 @@ public class Q2{
         for(int i = 0; i < size; i++) {
             matrix[i][0] = 1;
         }
-        int len = 5;
-        for(int i = 0; i < len; i++) {
-            for(int j = 0; j < len; j++) {
+        int len = 7;
+        for(int i = 1; i < len; i++) {
+            for(int j = 1; j < len; j++) {
                 System.out.println("--------------------------------------");
                 System.out.println("Path(" + i + "," + j + "): \t" + path(matrix, i, j));
                 System.out.println("Path(" + i + "," + j + "): \t" + pathMath(i, j) + " (Math method)");
