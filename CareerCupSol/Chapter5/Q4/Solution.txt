@@ -1,0 +1,4 @@
+Q: What the following code does: ((n & (n-1)) == 0)
+Ans:
+    if (n & (n - 1) == 0), it is means n and n-1 never share 1.
+    (n & (n - 1) == 0) is check whether n is power of 2 or if n is 0.
