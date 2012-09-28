@@ -80,8 +80,8 @@ res find_largest(int array[], int len){
 }
 int main(){
     //int array[] = {1, -2, 3, 10, -4, 7, 2, -5};
-    //int array[] = {-8, -1, -3, -10, -4, -7, -2, -5};
-    int array[] = {-8, -1, -3, 10, -4, -7, -2, -5};
+    int array[] = {-8, -1, -3, -10, -4, -7, -2, -5};
+    //int array[] = {-8, -1, -3, 10, -4, -7, -2, -5};
     int len = 8;
     res r;
     if(!check_neg(array, len)){
