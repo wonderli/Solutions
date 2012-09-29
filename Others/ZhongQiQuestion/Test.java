@@ -5,24 +5,16 @@ public class Test{
         ArrayList<ArrayList<Integer>> allSubSet;
         if(n == 1) {
             allSubSet = new ArrayList<ArrayList<Integer>>();
-            //for(int i = 0; i < set.size(); i++){
-                ArrayList<Integer> tmp = new ArrayList<Integer>();
-                //tmp.add(set.get(i));
-                tmp.add(set.get(0));
-                allSubSet.add(tmp);
-                return allSubSet;
-            //}
+            ArrayList<Integer> tmp = new ArrayList<Integer>();
+            tmp.add(set.get(0));
+            allSubSet.add(tmp);
+            return allSubSet;
         }
         allSubSet = new ArrayList<ArrayList<Integer>>(); 
         for(int i = 0; i < set.size(); i++) {
             Integer item = set.get(i);
             ArrayList<Integer> newSet = cloneSet(set);
             newSet.remove(i);
-//            System.out.println("\nNEW SET BEGIN\n");
-//            for(Integer m : newSet) {
-//                System.out.print(m.intValue() + " ");
-//            }
-//            System.out.println("\nNEW SET END\n");
             ArrayList<ArrayList<Integer>> newRetSet = subSet(newSet, n - 1);
             for(ArrayList<Integer> e : newRetSet){
                 e.add(item.intValue());
@@ -39,15 +31,7 @@ public class Test{
         }
         return newSet;
     }
-//    public static HashSet<HashSet<Integer>>(ArrayList<ArrayList<Integer> list) {
-//        HashSet<HashSet<Integer>> setList = new HashSet<HashSet<Integer>> ();
-//        HashSet<Integer> hs;
-//        for(ArrayList<Integer> e: list){
-//            for(Integer i: e) {
-//                hs.add
-//            }
-//        }
-//    }
+
     public static void printRes(ArrayList<ArrayList<Integer>> set){
         System.out.println();
         for(ArrayList<Integer> e : set) {
