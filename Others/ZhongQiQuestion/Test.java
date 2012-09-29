@@ -18,11 +18,11 @@ public class Test{
             Integer item = set.get(i);
             ArrayList<Integer> newSet = cloneSet(set);
             newSet.remove(i);
-            System.out.println("\nNEW SET BEGIN\n");
-            for(Integer m : newSet) {
-                System.out.print(m.intValue() + " ");
-            }
-            System.out.println("\nNEW SET END\n");
+//            System.out.println("\nNEW SET BEGIN\n");
+//            for(Integer m : newSet) {
+//                System.out.print(m.intValue() + " ");
+//            }
+//            System.out.println("\nNEW SET END\n");
             ArrayList<ArrayList<Integer>> newRetSet = subSet(newSet, n - 1);
             for(ArrayList<Integer> e : newRetSet){
                 e.add(item.intValue());
