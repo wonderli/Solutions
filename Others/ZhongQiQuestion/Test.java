@@ -64,14 +64,16 @@ public class Test{
     }
     public static void main(String args[]) {
         ArrayList<Integer> set = new ArrayList<Integer>();
-        int size = 5;
+        int size = 6;
         for(int i = 0; i < size; i++){
             set.add(new Integer(i));
         }
+        int x = 3;
         ArrayList<ArrayList<Integer>> ret = subSet(set, 3);
         //printRes(ret);
         HashSet<HashSet<Integer>> hashSet = new HashSet<HashSet<Integer>>();
         hashSet = clean(ret);
+        System.out.println("Array size " + size + " Subset size " + x);
         System.out.println(hashSet);
     }
 }
