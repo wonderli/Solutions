@@ -41,6 +41,27 @@ public class Test{
             System.out.println();
         }
     }
+//    public static void printRes(ArrayList<ArrayList<Integer>> set){
+//        System.out.println();
+//        for(ArrayList<Integer> e : set) {
+//            for(Integer i : e) {
+//                System.out.print(i.intValue() + " ");
+//            }
+//            System.out.println();
+//        }
+//    }
+
+    public static HashSet<HashSet<Integer>> clean(ArrayList<ArrayList<Integer>> list){
+        HashSet<HashSet<Integer>> set = new HashSet<HashSet<Integer>>();
+        for(ArrayList<Integer> le : list){
+            HashSet<Integer> hashCell = new HashSet<Integer>();
+            for(Integer e : le) {
+                hashCell.add(e);
+            }
+            set.add(hashCell);
+        }
+        return set;
+    }
     public static void main(String args[]) {
         ArrayList<Integer> set = new ArrayList<Integer>();
         int size = 5;
@@ -49,5 +70,8 @@ public class Test{
         }
         ArrayList<ArrayList<Integer>> ret = subSet(set, 3);
         printRes(ret);
+        HashSet<HashSet<Integer>> hashSet = new HashSet<HashSet<Integer>>();
+        hashSet = clean(ret);
+        System.out.println(hashSet);
     }
 }
