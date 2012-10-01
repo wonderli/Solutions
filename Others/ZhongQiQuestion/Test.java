@@ -70,7 +70,7 @@ public class Test{
         }
         int x = 3;
         ArrayList<ArrayList<Integer>> ret = subSet(set, 3);
-        //printRes(ret);
+        printRes(ret);
         HashSet<HashSet<Integer>> hashSet = new HashSet<HashSet<Integer>>();
         hashSet = clean(ret);
         System.out.println("Array size " + size + " Subset size " + x);
