@@ -1,4 +1,6 @@
 //Find two sorted Array intersection
+//Discussion: use binary search O(mlog(n)), use the following method O(m + n)
+//lg(n) is much smaller than n when n is very big. However, this does not necessarily means binary search is better in this case. In fact, binary search approach is only better when m << n (m is very small compared to n). For example, when m = 1 and n = one billion, which method will you choose? Binary search is definitely the winner here.
 import java.util.*;
 public class Q73{
     public static ArrayList<Integer> findIntersection(int a[], int b[]){
