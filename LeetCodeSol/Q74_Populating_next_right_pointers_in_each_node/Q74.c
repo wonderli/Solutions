@@ -25,6 +25,13 @@ void connect1(Node *p){
     }
     connect1(p->left);
 }
+void connect2 (Node *p) {
+    if(p == NULL) return;
+    if(p->left) p->left->nextRight = p->right;
+    if(p->right) p->right->nextRight = p->nextRight ? p->nextRight->left:NULL;
+    connect2(p->left);
+    connect2(p->right);
+}
 Node *create_node(int data) {
     Node *n = (Node *)malloc(sizeof(Node));
     n->data = data;
@@ -53,6 +60,7 @@ int main(){
     root->left->right = create_node(5);
     root->right->left = create_node(6);
     root->right->right = create_node(7);
-    connect1(root);
+    //connect1(root);
+    connect2(root);
     print_result(root);
 }
