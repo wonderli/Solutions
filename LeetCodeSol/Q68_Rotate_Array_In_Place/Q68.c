@@ -23,6 +23,22 @@ void print_array(char array[], int n){
     }
     printf("\n---------------------------\n");
 }
+void reverse_str(char *s, int start, int end){
+    char *p1 = s + start;
+    char *p2 = s + end;
+    while(p1 < p2){
+        char tmp = *p1;
+        *p1 = *p2;
+        *p2 = tmp;
+        p1++;
+        p2--;
+    }
+}
+void rotate_str(char *s, int n, int k){
+    reverse_str(s, 0, n - 1);
+    reverse_str(s, 0, k - 1);
+    reverse_str(s, k, n - 1);
+}
 int main(){
     int n = 7;
     char array[n];
@@ -33,6 +49,7 @@ int main(){
     }
     print_array(array, n);
     rotate_array(array, n, k);
+    //rotate_str(array, n, k);
     print_array(array, n);
 
     return 0;
