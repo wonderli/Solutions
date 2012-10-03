@@ -1,4 +1,5 @@
 //Rotate array in space
+//Another implmentation, reverse total string, then reverse the first part, and reverse the second part, you will get the result
 #include <stdio.h>
 #include <stdlib.h>
 void rotate_array(char array[], int n, int k){
