@@ -5,9 +5,9 @@ void rotate_array(char array[], int n, int k){
     int step = 0;
     while(step < k){
         int index = 0;
-        int tmp = array[index];
+        char tmp = array[index];
         while(index < n) {
-            int tmp2 = array[(index + 1)%n];
+            char tmp2 = array[(index + 1)%n];
             array[(index + 1)%n] = tmp;
             tmp = tmp2;
             index++;
