@@ -26,7 +26,7 @@ void inorder_iterative(Node *root){
 
 }
 int main(){
-    Node *root = buildTestTree();
+    Node *root = buildTestTree2();
     //inorder_recursive(root);
     inorder_iterative(root);
 }

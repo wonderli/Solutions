@@ -24,3 +24,19 @@ Node *buildTestTree(){
     root->right->right = createNode(20);
     return root;
 }
+
+Node *buildTestTree2(){
+    Node *root = createNode(30);
+    root->left = createNode(20);
+    root->right = createNode(40);
+    root->left->left = createNode(10);
+    root->left->right = createNode(25);
+    root->left->left->left = createNode(9);
+    root->left->left->right = createNode(15);
+    root->left->right->left = createNode(23);
+    root->left->right->right = createNode(27);
+    root->right->left = createNode(35);
+    root->right->right = createNode(45);
+    return root;
+}
+

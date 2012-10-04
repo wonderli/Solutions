@@ -22,13 +22,27 @@ void preorder_iterative(Node *root){
             curr = curr->right;
         }
     }
-
+}
+void preorder_iterative_2(Node *root){
+    stack<Node *> s;
+    Node *curr = root;
+    s.push(curr);
+    while(!s.empty()){
+        curr = s.top();
+        s.pop();
+        cout << curr->data << " ";
+        if(curr->right) s.push(curr->right);
+        if(curr->left) s.push(curr->left);
+    }
 }
 int main(){
-    Node *root = buildTestTree();
+    Node *root = buildTestTree2();
+    cout << "Pre Order result" << endl;
     preorder_recursive(root);
     cout << endl;
     preorder_iterative(root);
+    cout << endl;
+    preorder_iterative_2(root);
     cout << endl;
     return 0;
 }
