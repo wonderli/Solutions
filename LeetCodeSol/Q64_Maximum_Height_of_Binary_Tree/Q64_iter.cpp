@@ -40,6 +40,25 @@ int max_height_of_tree_iteratative(Node *root){
     }
     return maxdepth;
 }
+//Pre order
+int max_height_of_tree_iteratative2(Node *root){
+    int maxdepth = 0;
+    Node *curr = root;
+    stack<Node *> s;
+    s.push(root);
+    while(!s.empty()){
+        if(s.size() > maxdepth){
+            maxdepth = s.size();
+        }
+        curr = s.top();
+        s.pop();
+        if(curr->right)
+            s.push(curr->right);
+        if(curr->left)
+            s.push(curr->left);
+    }
+    return maxdepth;
+}
 Node *createTest(){
     Node *root = createNode(1);
     root->left = createNode(2);
@@ -66,7 +85,9 @@ Node *buildTestTree(){
 int main(){
     //Node *root = createTest();
     Node *root = buildTestTree();
-    int depth = max_height_of_tree_iteratative(root);
+    //int depth = max_height_of_tree_iteratative(root);
+    //printf("%d\n", depth);
+    int depth = max_height_of_tree_iteratative2(root);
     printf("%d\n", depth);
     return 0;
 }
