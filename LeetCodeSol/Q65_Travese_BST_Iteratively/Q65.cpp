@@ -10,7 +10,6 @@ typedef struct node{
 
 void inorder_traverse_iterative(BST *root){
     stack<BST *> s;
-    s.push(root);
     BST *current = root;
     bool done = false;
     while(!done){
@@ -41,9 +40,9 @@ BST *createBSTNode(int data){
 int main(){
     BST *root = createBSTNode(10);
     root->left = createBSTNode(5);
-    root->right = createBSTNode(15);
     root->left->left = createBSTNode(1);
     root->left->right = createBSTNode(7);
+    root->right = createBSTNode(15);
     root->right->left = createBSTNode(13);
     root->right->right = createBSTNode(20);
     inorder_traverse_iterative(root);
