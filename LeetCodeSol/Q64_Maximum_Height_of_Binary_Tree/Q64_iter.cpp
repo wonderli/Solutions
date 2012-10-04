@@ -1,5 +1,6 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stack>
+using namespace std;
 typedef struct node {
     struct node *left;
     struct node *right;
@@ -13,11 +14,31 @@ Node *createNode(int data){
     n->right = NULL;
     return n;
 }
-int max_height_of_tree_recursive(Node *root){
+//Post order
+int max_height_of_tree_iteratative(Node *root){
     if(root == NULL) return 0;
-    int left = max_height_of_tree_recursive(root->left);
-    int right = max_height_of_tree_recursive(root->right);
-    return left > right? left+1 : right+1;
+    stack<Node *> s;
+    s.push(root);
+    Node *curr = root;
+    Node *prev = NULL;
+    int maxdepth = 0;
+    while(!s.empty()){
+        curr = s.top();
+        if(!prev||prev->left == curr||prev->right == curr){
+            if(curr->left) s.push(curr->left);
+            else if(curr->right) s.push(curr->right);
+        }else if(curr->left == prev){
+            if(curr->right)
+                s.push(curr->right);
+        }else{
+            s.pop();
+        }
+        prev = curr;
+        if(s.size() > maxdepth){
+            maxdepth = s.size();
+        }
+    }
+    return maxdepth;
 }
 Node *createTest(){
     Node *root = createNode(1);
@@ -42,10 +63,10 @@ Node *buildTestTree(){
     return root;
 }
 
-
 int main(){
     //Node *root = createTest();
     Node *root = buildTestTree();
-    printf("%d\n", max_height_of_tree_recursive(root));
+    int depth = max_height_of_tree_iteratative(root);
+    printf("%d\n", depth);
     return 0;
 }
