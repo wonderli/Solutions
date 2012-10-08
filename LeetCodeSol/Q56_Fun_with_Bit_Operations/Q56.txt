@@ -1,0 +1,6 @@
+//bool mystery(unsigned int x) {
+//return !(x & (x-1)); }
+//The function return whether integer x is the power of 2.
+//return x && !(x & (x-1)); This one is exclude 0.
+
+
