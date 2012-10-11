@@ -25,3 +25,9 @@ Node *buildBST(){
     root->right->left->left = n[6];
     return root;
 }
+int maxHeight(Node *root){
+    if(!root) return 0;
+    int left = maxHeight(root->left);
+    int right = maxHeight(root->right);
+    return (left > right)? left:right + 1;
+}

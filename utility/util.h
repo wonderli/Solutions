@@ -7,4 +7,5 @@ typedef struct node {
 } Node;
 Node *createNode(int);
 Node *buildBST();
+int maxHeight(Node *);
 
