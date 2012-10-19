@@ -19,6 +19,7 @@ struct Node {
         this->data = data;
     }
 };
+//use pre order to reconstruct tree.
 void constructBST(int min, int max, int &val, Node *&n, ifstream &s){
     if(min < val && max > val){
         int data = val;
