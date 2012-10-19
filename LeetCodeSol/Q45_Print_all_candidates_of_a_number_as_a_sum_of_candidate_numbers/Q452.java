@@ -1,5 +1,5 @@
 import java.util.*;
-public class Q45{
+public class Q452{
     public static void printCandidates(int candidates[], int index[], int n){
         for(int i = 1; i <= n; i++){
             if(i != n){
@@ -16,7 +16,7 @@ public class Q45{
             printCandidates(candidates, index, n);
             return;
         }
-        for(int i = index[n]; i < candidates.length; i++) {
+        for(int i = index[n] + 1; i < candidates.length; i++) {
             index[n+1] = i;
             getCombination(candidates, target, sum + candidates[i], index, n+1);
         }
