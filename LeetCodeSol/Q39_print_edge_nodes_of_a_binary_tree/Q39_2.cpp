@@ -110,27 +110,38 @@ void printPretty(Node *root, int level, int indentSpace, ostream &out){
         printBranches(branchLen, nodeSpaceLen, startLen, nodesInThisLevel, nodesQueue, out);
         printLeaves(indentSpace, level, nodesInThisLevel, nodesQueue, out);
 }
-void printLeftEdge(Node *n, bool print){
+void printLeftEdge(Node *n){
     if(!n) return;
-    if(print || !n->left && !n->right){
-        cout << n->data << " ";
+    if(!n->left && !n->right) return;
+    cout << n->data << " ";
+    if(n->left){
+        printLeftEdge(n->left);
+    }else{
+        printLeftEdge(n->right);
     }
-    printLeftEdge(n->left, print);
-    printLeftEdge(n->right, (print && !n->left)? true : false);
 }
-void printRightEdge(Node *n, bool print){
+void printRightEdge(Node *n){
     if(!n) return;
-    printRightEdge(n->left, (print && !n->right)? true : false);
-    printRightEdge(n->right, print);
-    if(print || !n->left && !n->right){
+    if(!n->left && !n->right) return;
+    if(n->right){
+        printRightEdge(n->right);
+    }else{
+        printRightEdge(n->left);
+    }
+    cout << n->data << " ";
+}
+void printLeaves(Node *n){
+    if(!n) return;
+    printLeaves(n->left);
+    if(!n->left && !n->right){
         cout << n->data << " ";
     }
+    printLeaves(n->right);
 }
 void printEdges(Node *n){
-    if(!n) return;
-    cout << n->data << " ";
-    printLeftEdge(n->left, true);
-    printRightEdge(n->right, true);
+    printLeftEdge(n);
+    printLeaves(n);
+    printRightEdge(n);
 }
 
 int main(){
