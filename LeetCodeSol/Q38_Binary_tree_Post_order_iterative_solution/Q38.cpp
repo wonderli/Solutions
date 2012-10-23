@@ -123,7 +123,7 @@ void postOrderIter(Node *root){
     s.push(root);
     while(!s.empty()){
         curr = s.top();
-        if(!prev|| prev->left == curr || prev->right == curr){
+        if(!prev || prev->left == curr || prev->right == curr){
             if(curr->left){
                 s.push(curr->left);
             } else if(curr->right){
