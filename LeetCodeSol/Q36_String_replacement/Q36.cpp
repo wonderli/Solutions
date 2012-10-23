@@ -1,3 +1,4 @@
+//The core part is use two pointer one is slow and another is fast, then everything solved perfectly.
 #include <iostream>
 using namespace std;
 bool isMatch(char *str, const char *pattern){
