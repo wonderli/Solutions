@@ -35,8 +35,8 @@ void replace(char *str, const char *pattern){
 }
 int main(int argc, char *argv[]){
     char *str = (char*)malloc(1024);
-    const char *pattern = "abc";
-    strcpy(str, "abcdeffdfegabcab");
+    const char *pattern = "aaaaaa";
+    strcpy(str, "aaaaaa,");
     replace(str, pattern);
     cout << str << endl;
     
