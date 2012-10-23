@@ -18,7 +18,7 @@ void replace(char *str, const char *pattern){
     int p_len = strlen(pattern);
     while(*fast != '\0'){
         bool matched = false;
-        while(isMatch(fast, pattern)){
+        if(isMatch(fast, pattern)){
             matched = true;
             fast += p_len;
         }
@@ -36,8 +36,8 @@ void replace(char *str, const char *pattern){
 }
 int main(int argc, char *argv[]){
     char *str = (char*)malloc(1024);
-    const char *pattern = "aaaaaa";
-    strcpy(str, "aaaaaa,");
+    const char *pattern = "abc";
+    strcpy(str, "abcdeffdfegabcab");
     replace(str, pattern);
     cout << str << endl;
     
