@@ -23,6 +23,46 @@ Node *createNode(int data){
     return n;
 }
 
+typedef struct linklist{
+    struct linklist *next;
+    int data;
+} List;
+
+List *createList(int data){
+    List *n = (List *)malloc(sizeof(List));
+    n->next = NULL;
+    n->data = data;
+    return n;
+}
+
+List *buildList(){
+    int size = 7;
+    List *l[size];
+    for(int i = 0; i < size; i++){
+        l[i] = createList(i);
+    }
+    for(int i = 0; i < size - 1; i++){
+        l[i]->next = l[i+1];
+    }
+    return l[0];
+}
+
+Node *createBSTFromList(List *&l, int start, int end){
+    if(!l) return NULL;
+    if(start > end) return NULL;
+    int mid = (start + end)/2;
+    Node *left = createBSTFromList(l, start, mid - 1);
+    Node *parent = createNode(l->data);
+    parent->left = left;
+    l = l->next;
+    parent->right = createBSTFromList(l, mid + 1, end);
+    return parent;
+
+}
+
+
+
+
 int maxHeight(Node *root){
     if(!root) return 0;
     int left = maxHeight(root->left);
@@ -90,20 +130,14 @@ void printPretty(Node *root, int level, int indentSpace, ostream &out){
         printLeaves(indentSpace, level, nodesInThisLevel, nodesQueue, out);
 }
 
-Node *constructFromArray(int array[], int start, int end){
-    if(start > end) return NULL;
-    int mid = (start + end)/2;
-    Node *r = createNode(array[mid]);
-    r->left = constructFromArray(array, start, mid - 1);
-    r->right = constructFromArray(array, mid + 1, end);
-    return r;
-}
+
 
 
 
 int main(int argc, char *argv[]){
     int array[] = {0, 1, 2, 3, 4, 5, 6};
-    Node *r = constructFromArray(array, 0, 6);
+    List *l = buildList();
+    Node *r = createBSTFromList(l, 0, 6);
     printPretty(r, 5, 1, cout);
 
 }
