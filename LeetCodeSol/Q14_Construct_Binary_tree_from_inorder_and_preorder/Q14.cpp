@@ -132,6 +132,7 @@ int main(){
     mapToIndices(inorder, size);
     Node *root = buildBTFromPreorder(inorder, preorder, size, 0);
     printPretty(root, 1, 10, cout );
+
     return 0;
 }
 
