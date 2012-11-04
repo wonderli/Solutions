@@ -1,11 +1,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-//void cleanmap(bool charmap[], int n){
-//    for(int i = 0; i < n; i++){
-//        charmap[i] = false;
-//    }
-//}
 int lengthOfLongestSubstring(string str){
     int size = 256;
     bool charmap[size];
