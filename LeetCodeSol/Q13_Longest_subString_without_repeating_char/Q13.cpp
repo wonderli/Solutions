@@ -6,7 +6,7 @@ void cleanmap(bool charmap[], int n){
         charmap[i] = false;
     }
 }
-int longestSubString(string str){
+int lengthOfLongestSubstring(string str){
     int size = 256;
     bool charmap[size];
     int maxLength = 0;
@@ -38,7 +38,7 @@ int longestSubString(string str){
 int main(){
     //string str("abcabcbb");
     string str("bbb");
-    int len = longestSubString(str);
+    int len = lengthOfLongestSubstring(str);
     cout << len << endl;
     return 0;
 }
