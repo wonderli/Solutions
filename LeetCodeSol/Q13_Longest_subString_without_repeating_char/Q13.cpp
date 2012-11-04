@@ -36,8 +36,8 @@ int lengthOfLongestSubstring(string str){
 
 
 int main(){
-    //string str("abcabcbb");
-    string str("bbb");
+    string str("abcabcbb");
+    //string str("bbb");
     int len = lengthOfLongestSubstring(str);
     cout << len << endl;
     return 0;
