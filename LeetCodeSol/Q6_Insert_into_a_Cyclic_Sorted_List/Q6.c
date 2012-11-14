@@ -37,6 +37,11 @@ Node *createList(){
     return root;
 }
 Node *insertCyclicList(Node *root, int data){
+    if(root == NULL) {
+        Node *n = createNode(data);
+        n->next = n;
+        return n;
+    }
     Node *curr = root;
     Node *n = createNode(data);
     while(curr->next->data > curr->data){
@@ -66,6 +71,9 @@ Node *insertCyclicList(Node *root, int data){
 int main(){
     Node *root = createList();
     printCyclicList(root);
+    root = insertCyclicList(root,-10);
+    printCyclicList(root);
+    root = NULL;
     root = insertCyclicList(root,-10);
     printCyclicList(root);
     return 0;
