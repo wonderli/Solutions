@@ -83,7 +83,7 @@ int main(){
     char *s = (char *)malloc(MAXBUFF);
     //strcpy(s, "ll");
     //print_path(root, s);
-    f(10,root,s,root);
+    f(22,root,s,root);
 
     return 0;
 }
