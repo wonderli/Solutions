@@ -5,7 +5,8 @@ public class Sol{
         Scanner in = new Scanner(System.in);
         while(in.hasNext()){
             int input = in.nextInt(); 
-            int result = (input/8 + ((input%8 == 0) ? 0:1)) * 8;
+            //int result = (input/8 + ((input%8 == 0) ? 0:1)) * 8;
+            int result = (input+7)&(~7);
             System.out.println(result);
         }
     }
