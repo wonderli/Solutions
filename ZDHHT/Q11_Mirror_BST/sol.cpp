@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 using namespace std;
 typedef struct node{
     struct node *left;
@@ -41,8 +42,29 @@ void printTree(Node *root){
     cout << root->data << " ";
     printTree(root->right);
 }
+void mirrorIterative(Node *root){
+    if(root == NULL) return;
+    stack<Node *> s;
+    s.push(root);
+    while(s.size()){
+        Node *n = s.top();
+        s.pop();
+        Node *tmp = n->left;
+        n->left = n->right;
+        n->right = tmp;
+        if(n->left){
+            s.push(n->left);
+        }
+        if(n->right){
+            s.push(n->right);
+        }
+    }
+}
 int main(){
     Node *root = buildTree();
+    printTree(root);
+    cout << endl;
+    mirrorIterative(root);
     printTree(root);
     cout << endl;
     mirror(root);
