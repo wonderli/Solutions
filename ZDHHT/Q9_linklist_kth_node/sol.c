@@ -18,6 +18,10 @@ void printList(Node *root){
     printf("\n");
 }
 void findKth(Node *root, int k){
+    if(root == NULL){
+        printf("Error\n");
+        return;
+    }
     Node *fast = root;
     Node *slow = root;
     int i = 0;
