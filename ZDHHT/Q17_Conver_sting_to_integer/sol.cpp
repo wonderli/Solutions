@@ -12,8 +12,7 @@ int strToint(string str){
         negflag = 1;
     }
     for(int i = start; i < len; i++){
-        num *= 10;
-        num += (s[i] - '0');
+        num = num * 10 + (s[i] - '0');
     }
     if(negflag == 1){
         num *= -1;
