@@ -1,3 +1,4 @@
+//find 1s in number
 #include <iostream>
 using namespace std;
 int findOnes(int n){

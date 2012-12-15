@@ -1,3 +1,4 @@
+//next permutation
 import java.util.*;
 public class Sol{
     public static String nextPermutation(String s){
