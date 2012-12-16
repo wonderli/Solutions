@@ -1,4 +1,5 @@
 //next permutation
+//prev permutation
 import java.util.*;
 public class Sol{
     public static String nextPermutation(String s){
@@ -32,12 +33,43 @@ public class Sol{
         ret = String.valueOf(sArray);
         return ret;
     }
+    public static String prevPermutation(String str){
+        int len = str.length();
+        String ret = null;
+        char s[] = str.toLowerCase().toCharArray();
+        int j = len - 1;
+        int k = len - 1;
+        while(j > 0 && s[j] < s[j-1]){
+            j--;
+        }
+        if(j < 0) return ret;
+        k = len - 1;
+        while(k > 0 && s[k] < s[j]){
+            k--;
+        }
+        char temp = s[j];
+        s[j] = s[k];
+        s[k] = temp;
+        Arrays.sort(s, j+1, len);
+        ret = String.valueOf(s);
+        return ret;
+    }
     public static void main(String args[]){
         Scanner sc = new Scanner(System.in);
         String input = null;
         if(sc.hasNext()){
             input = sc.next();
         }
-        System.out.println(nextPermutation(input));
+        String next = nextPermutation(input);
+        System.out.println(next);
+        String prev = prevPermutation(input);
+        System.out.println(prev);
+//        while(next != null){
+//            System.out.println();
+//            next = nextPermutation(next);
+//            System.out.println(next);
+//            System.out.println(prevPermutation(next));
+//            System.out.println();
+//        }
     }
 }
