@@ -92,7 +92,21 @@ void myswapXor(int &x, int &y){
     y = x ^ y;
     x = x ^ y;
 }
+void myputLong(int x){
+    if(x < 0){
+        putchar('-');
+        x = -x;
+    }
+    if(x >= 10){
+        myputLong(x/10);
+    }
+    putchar(x%10 + '0');
+}
+
 int main(){
+//    int x = 0;
+//    int y = 0;
+//    cin >> x >> y;
 //    int i = 0;
 //    cin >> i;
 //    cout << reverse(i) << endl;
@@ -102,13 +116,13 @@ int main(){
 //    char str[] = "-1123456789";
 //    cout << str << endl;
 //    cout << myatoi(str) << endl;
-    int x = 0;
-    int y = 0;
-    cin >> x >> y;
 //    cout << myadd(x,y) << endl;
 //    cout << mymultiply(x,y) << endl;
 //    cout << mysubstract(x, y) << endl;
-    //cout << mymaxInteger(x, y) << endl;
-    myswapXor(x, y);
-    cout << x << " " << y << endl;
+//    cout << mymaxInteger(x, y) << endl;
+//    myswapXor(x, y);
+//    cout << x << " " << y << endl;
+    long input;
+    cin >> input;
+    myputLong(input);
 }
