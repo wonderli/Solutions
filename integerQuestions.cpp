@@ -78,6 +78,20 @@ int mysubstract(int x, int y){
     y = ~y + 1;
     return x + y;
 }
+int mymaxInteger(int x, int y){
+    return ((x + y) + abs(x - y))/2;
+}
+//swap two integer with only +/-
+void myswapaddsub(int &x, int &y){
+    x = x + y;
+    y = x - y;
+    x = x - y;
+}
+void myswapXor(int &x, int &y){
+    x = x ^ y;
+    y = x ^ y;
+    x = x ^ y;
+}
 int main(){
 //    int i = 0;
 //    cin >> i;
@@ -93,5 +107,8 @@ int main(){
     cin >> x >> y;
 //    cout << myadd(x,y) << endl;
 //    cout << mymultiply(x,y) << endl;
-    cout << mysubstract(x, y) << endl;
+//    cout << mysubstract(x, y) << endl;
+    //cout << mymaxInteger(x, y) << endl;
+    myswapXor(x, y);
+    cout << x << " " << y << endl;
 }
