@@ -24,9 +24,31 @@ int lcs(char a[], char b[], int m, int n){
     }
     return L[m][n];
 }
+int lcsub(char a[], char b[], int m, int n){
+    int L[m+1][n+1];
+    int maxLen = 0;
+    int lastSubsBegin = 0;
+    for(int i = 0; i < m+1; i++){
+        for(int j = 0; j < n+1; j++){
+            if(a[i] != b[j]) L[i][j] = 0; 
+            else{
+                if(i == 0|j == 0){
+                    L[i][j] = 1;
+                }else {
+                    L[i][j] = 1 + L[i-1][j-1];
+                }
+                if(L[i][j] > maxLen){
+                    maxLen = L[i][j];
+                }
+            }
+        }
+    }
+    return maxLen;
+}
 int main(){
     char a[] = "BDCABA";
     char b[] = "ABCBDAB";
     //cout << LCS(a, b, strlen(a), strlen(b)) << endl;
     cout << lcs(a, b, strlen(a), strlen(b)) << endl;
+    cout << lcsub(a, b, strlen(a), strlen(b)) << endl;
 }
