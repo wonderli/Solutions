@@ -132,6 +132,30 @@ int maxDeep(Node *root){
     if(root == NULL) return 0;
     return max(maxDeep(root->left), maxDeep(root->right)) + 1;
 }
+Node *minValue(Node *root){
+    Node *curr = root;
+    while(curr->left != NULL){
+        curr = curr->left;
+    }
+    return curr;
+}
+Node *findSuccessor(Node *root, Node *n){
+    if(n->right != NULL){
+        return minValue(n->right);
+    }
+    Node *succ = NULL;
+    while(root != NULL){
+        if(n->data < root->data){
+            succ = root;
+            root = root->left;
+        }else if(n->data > root->data){
+            root = root->right;
+        }else
+            break;
+    }
+    return succ;
+
+}
 int main(){
     Node *root = buildBT();
     inorder(root);
@@ -149,6 +173,9 @@ int main(){
     postOrderTwoStack(root);
     cout << endl;
     cout << maxDeep(root) << endl;
+    Node *n = root->right->left->left;
+    Node *succ = findSuccessor(root, n);
+    cout << succ->data << endl;
 }
 
 

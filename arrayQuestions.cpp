@@ -68,12 +68,36 @@ void findMissing(int A[], int n){
     cout << endl;
 
 }
+int findArraySum(int array[], int n, int sum){
+    int curr_sum = array[0];
+    int start = 0;
+    int i = 0;
+    for(i = 1; i < n; i++){
+        while(curr_sum > sum && start < i - 1){
+            curr_sum = curr_sum - array[start];
+            start++;
+        }
+        if(curr_sum == sum){
+            cout << "sum found between indexes " << start << " and " << i - 1 << endl;
+            return 1;
+        }
+        if(i < n){
+            curr_sum = curr_sum + array[i];
+        }
+    }
+    cout << "No sum found" << endl;
+    return 0;
+}
+
 int main(){
     //char a[] = "BDCABA";
     //char b[] = "ABCBDAB";
     //cout << LCS(a, b, strlen(a), strlen(b)) << endl;
     //cout << lcs(a, b, strlen(a), strlen(b)) << endl;
     //cout << lcsub(a, b, strlen(a), strlen(b)) << endl;
-    int array[] = {1,0,0,3,0};
-    findMissing(array, sizeof(array)/sizeof(array[0]));
+    //int array[] = {1,0,0,3,0};
+    //findMissing(array, sizeof(array)/sizeof(array[0]));
+    int array[] = {15, 2, 4, 8, 9, 5, 10, 23};
+    int sum = 23;
+    findArraySum(array, sizeof(array)/sizeof(array[0]), sum);
 }

@@ -102,7 +102,18 @@ void myputLong(int x){
     }
     putchar(x%10 + '0');
 }
+//get the number binary representation
+void mybinary(int num){
+    unsigned i;
+    for(i = 1 << 31; i > 0; i = i/2){
+        (num&i)? cout << "1" : cout << "0";
+    }
+}
 
+void mybinary2(int num){
+    if(num > 1) mybinary2(num/2);
+    cout << num%2;
+}
 int main(){
 //    int x = 0;
 //    int y = 0;
@@ -124,5 +135,9 @@ int main(){
 //    cout << x << " " << y << endl;
     long input;
     cin >> input;
-    myputLong(input);
+//    myputLong(input);
+    mybinary(input);
+    cout << endl;
+    mybinary2(input);
+    cout << endl;
 }
