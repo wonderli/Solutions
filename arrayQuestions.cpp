@@ -45,10 +45,35 @@ int lcsub(char a[], char b[], int m, int n){
     }
     return maxLen;
 }
+void findMissing(int A[], int n){
+    for(int i = 0; i< n; i++){
+        cout << A[i] << " ";
+    }
+    cout << endl;
+
+    for(int i = 0; i< n; i++){
+        while(A[i] != i && A[i] != A[A[i]] ){
+            swap(A[i], A[A[i]]);
+        }
+    }
+    for(int i = 0; i< n; i++){
+        cout << A[i] << " ";
+    }
+    cout << endl;
+    for(int i = 0; i < n; i++){
+        if(A[i] != i){
+            cout << i << " ";
+        }
+    }
+    cout << endl;
+
+}
 int main(){
-    char a[] = "BDCABA";
-    char b[] = "ABCBDAB";
+    //char a[] = "BDCABA";
+    //char b[] = "ABCBDAB";
     //cout << LCS(a, b, strlen(a), strlen(b)) << endl;
-    cout << lcs(a, b, strlen(a), strlen(b)) << endl;
-    cout << lcsub(a, b, strlen(a), strlen(b)) << endl;
+    //cout << lcs(a, b, strlen(a), strlen(b)) << endl;
+    //cout << lcsub(a, b, strlen(a), strlen(b)) << endl;
+    int array[] = {1,0,0,3,0};
+    findMissing(array, sizeof(array)/sizeof(array[0]));
 }
