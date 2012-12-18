@@ -106,6 +106,7 @@ void myputLong(int x){
 void mybinary(int num){
     unsigned i;
     for(i = 1 << 31; i > 0; i = i/2){
+    //for(i = 1 << 31; i > 0; i = i >> 1){
         (num&i)? cout << "1" : cout << "0";
     }
 }
