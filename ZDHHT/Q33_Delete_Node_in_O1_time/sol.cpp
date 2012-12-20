@@ -1,3 +1,4 @@
+//delete linklist node in O1 time
 #include <iostream>
 using namespace std;
 typedef struct Node_{
