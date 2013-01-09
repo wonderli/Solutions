@@ -27,6 +27,8 @@ public class Solution{
         return ret;
     }
     public static void main(String args[]){
-
+        int prices[] = {2,1,2,0,1};
+        Solution s = new Solution();
+        System.out.println(s.maxProfit(prices));
     }
 }
