@@ -1,0 +1,646 @@
+,,algorithm,,,,,
+Integers,find number of 1s,x & (x - 1) count++,,,,,
+Integers,Next Largest Smaller Number,,,,,,
+Integers,Next Smallest Large Number,"1. from integer right to left, find first A[i] < A[i+1], if i < 0, then all permutation has been found.
+2. from i+1, from right to left, find first A[j] > A[i]
+3. swap(A[i], A[j])
+4. reverse(A, i+1, end)","public static String nextPermutation(String s){
+        String ret = null;
+        char sArray[] = s.toLowerCase().toCharArray();
+        int len = s.length();
+        int i = 0;
+        int j = len - 2;
+        int k = len - 1;
+        while(j >= 0 && sArray[j] > sArray[j+1]){
+            j--;
+        }
+        if(j < 0){
+            return ret;
+        }
+        while(sArray[k] < sArray[j]){
+                k--;
+        }
+        char temp = sArray[k];
+        sArray[k] = sArray[j];
+        sArray[j] = temp;
+        int low = j + 1;
+        int high = len - 1;
+        while(low < high){
+            temp = sArray[low];
+            sArray[low] = sArray[high];
+            sArray[high] = temp;
+            low++;
+            high--;
+        }
+        ret = String.valueOf(sArray);
+        return ret;
+    }
+
+",,,,
+Integers,determine if is palindrom,"Easy implementation:
+Reverse the Integer, then substract them.
+Another implementation:
+Make the integer as string, check string is palindrome","int reverse(int i){
+    int num = 0;
+    while(i != 0){
+        num = num * 10 + i%10;
+        i = i/10;
+    }
+    return num;
+}
+
+",,,,
+Integers,itoa,"1. Need to check sign, if the num < 0, put the first char as '-'
+2. Generate digits as reverse order.
+3. Reverse String
+(Code from K & R)","void itoa(int n, char s[])
+ {
+     int i, sign;
+ 
+     if ((sign = n) < 0)  /* record sign */
+         n = -n;          /* make n positive */
+     i = 0;
+     do {       /* generate digits in reverse order */
+         s[i++] = n % 10 + '0';   /* get next digit */
+     } while ((n /= 10) > 0);     /* delete it */
+     if (sign < 0)
+         s[i++] = '-';
+     s[i] = '\0';
+     reverse(s);
+ }",,,,
+Integers,atoi,"1. check the str whether NULL or not, if it is NULL, return ERROR code
+2. check the str[0] whether equal to minus or not, if it is minus, set Negative flag to false
+3. num = 0, get every digit, then num = num * 10 + digit
+4. return num","int myatoi(char *str){
+    if(str == NULL) return 0;
+    int start = 0;
+    bool isNeg = false;
+    if(str[0] == '-'){
+        start++;
+        isNeg = true;
+    }
+    int end = strlen(str) - 1;
+    int num = 0;
+    while(start <= end){
+        num = num * 10 + (str[start] - '0');
+        start++;
+    }
+    if(isNeg) num *= -1;
+    return num;
+}
+
+",,,,
+Integers,add 2 numbers w/o using + or arithmetic operators,"Sum of two bits can be obtained by performing XOR (^) of the two bits.
+Carry bit can be obtained by performing AND (&) of two bits.","int myadd(int x, int y){
+    int carry = 0;
+    while(y != 0){
+        carry = x & y;
+        x = x ^ y;
+        y = carry << 1;
+    }
+    return x;
+}
+
+",,,,
+Integers," implement *, using only +","x and y
+shift x to left, mulitiply 2
+shift y to right, divided 2
+if y final is odd, add finally a to result","int mymultiply(int x, int y){
+    int ret = 0;
+    while(y!=0){
+        if(y&1){
+            ret = ret + x;
+        }
+        x <<= 1;
+        y >>= 1;
+    }
+    return ret;
+}
+
+",,,,
+Integers," implement -, / using only +","x and y
+change y to y's complement and add 1
+add x and y and return","int mysubstract(int x, int y){
+    y = ~y + 1;
+    return x + y;
+}
+
+",,,,
+Integers,find max of two numbers w/o comparison,(x + y + |x - y|)/2,"int mymaxInteger(int x, int y){
+    return ((x + y) + abs(x - y))/2;
+}
+
+max = a-((a-b)&((a-b)>>31))",,,,
+Integers,swap two numbers with +/-,"x = x + y
+y = x - y
+x = x - y","void myswapaddsub(int &x, int &y){
+    x = x + y;
+    y = x - y;
+    x = x - y;
+}
+
+",,,,
+Integers,swap two numbers with ^,"x = x ^ y
+y = x ^ y
+x = x ^ y","void myswapXor(int &x, int &y){
+    x = x ^ y;
+    y = x ^ y;
+    x = x ^ y;
+}
+
+",,,,
+,"given an integer, find the closest number that is palindrome",,,,,,
+,implement putlong() by putchar(),,"void myputLong(int x){
+    if(x < 0){
+        putchar('-');
+        x = -x;
+    }
+    if(x >= 10){
+        myputLong(x/10);
+    }
+    putchar(x%10 + '0');
+}
+
+",,,,
+linklist,find cycle,"use a slow pointer and fast pointer, if the fast pointer first reach NULL, then it means the linklist doesn't have cycle
+if the fast pointer and slow pointer meet together, then it means the linklist have cycle",,,,,
+linklist,find position of cycle starts,"use a slow pointer and fast pointer, if the fast pointer first reach NULL, then it means the linklist doesn't have cycle
+if the fast pointer and slow pointer meet together, then it means the linklist have cycle
+then move the slow pointer back to the linklist head, move them step by step, when they meet together again, the position is the cycle start point",,,,,
+linklist,"reverse LL
+reverse linklist",,"Node *reverseLinklist(Node *root){
+    Node *prev = NULL;
+    Node *curr = root;
+    while(curr != NULL){
+        Node *tmp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = tmp;
+    }
+    return prev; 
+}
+
+",,,,
+linklist,delete a node in middle,"find the node in the middle, then copy the next node to the middle node, delete the next node. ",,,,,
+linklist,"each node contains a value pointer pointing to a node, duplicate LL
+
+","1) Create the copy of node 1 and insert it between node 1 & node 2 in original Linked List, create the copy of 2 and insert it between 2 & 3.. Continue in this fashion, add the copy of N afte the Nth node
+2) Now copy the arbitrary link in this fashion
+
+     original->next->arbitrary = original->arbitrary->next;  /*TRAVERSE 
+TWO NODES*/
+
+This works because original->next is nothing but copy of original and Original->arbitrary->next is nothing but copy of arbitrary.
+3) Now restore the original and copy linked lists in this fashion in a single loop.
+
+     original->next = original->next->next;
+     copy->next = copy->next->next;
+
+4) Make sure that last element of original->next is NULL.",,,,,
+linklist, remove duplicates from sorted/un-sorted LL.,"1.This is the simple way where two loops are used. Outer loop is used to pick the elements one by one and inner loop compares the picked element with rest of the elements.
+2. 
+    1)Sort the elements using Merge Sort. We will soon be writing a post about sorting a linked list. O(nLogn)
+    2)Remove duplicates in linear time using the algorithm for removing duplicates in sorted Linked List. O(n)
+3.  Traverse the link list from head to end.
+    For every newly encountered element, we check whether it is in the hash table: 
+    if yes, we remove it; otherwise we put it in the hash table.",,,,,
+linklist,find n-th to last node to end,"use two pointers, one is slow the other is fast, then move fast ahead n nodes, then move fast and slow together, when fast reach the end, return slow pointer",,,,,
+linklist,"number is represented by LL, add 2 numbers","1. Define which list representation.
+2. from begin to end, if the list node data is NULL treat as 0 
+R(n) = L1(n) + L2(n) + carry, if R(n) > 10, R(n) = R(n) - 10, carry = 1
+move to next one","struct node* addTwoLists (struct node* first, struct node* second)
+{
+    struct node* res = NULL; // res is head node of the resultant list
+    struct node *temp, *prev = NULL;
+    int carry = 0, sum;
+ 
+    while (first != NULL || second != NULL) //while both lists exist
+    {
+        sum = carry + (first? first->data: 0) + (second? second->data: 0);
+        carry = (sum >= 10)? 1 : 0;
+        sum = sum % 10;
+        temp = newNode(sum);
+        if(res == NULL)
+            res = temp;
+        else 
+            prev->next = temp;
+        prev  = temp;
+        if (first) first = first->next;
+        if (second) second = second->next;
+    }
+ 
+    if (carry > 0)
+      temp->next = newNode(carry);
+    return res;
+}",,,,
+Array,Longest common subsequence(LCS),"1. Use dynamic programming
+2. LCS(i,j) if(i == 0|| j ==0){ return 0}
+    else if(a[i-1] == b[j-1]) return LCS(i-1,j-1) + 1
+    else return max(LCS(i-1,j), LCS(i, j-1))","int LCS(char a[], char b[], int m, int n){
+    if(m == 0||n == 0){
+        return 0;
+    }
+    if(a[m-1] == b[n-1]) return LCS(a, b, m-1, n-1) + 1;
+    else 
+        return max(LCS(a, b, m, n-1), LCS(a, b, m-1, n));
+}
+
+int lcs(char a[], char b[], int m, int n){
+    int L[m+1][n+1];
+    int i, j;
+    for(i = 0; i <= m; i++){
+        for(j = 0; j <= n; j++){
+            if(i == 0 || j == 0){
+                L[i][j] = 0;
+            }else if(a[i-1] == b[j-1]){
+                L[i][j] = L[i-1][j-1] + 1;
+            }else
+                L[i][j] = max(L[i-1][j], L[i][j-1]);
+        }
+    }
+    return L[m][n];
+}
+
+",,,,
+Array,Longest common substring,,"public class LCSSubstring{
+    public static String lcssub(String a, String b){
+        int m = a.length();
+        int n = b.length();
+        if(a == null || a.isEmpty() || b == null || b.isEmpty()){
+            return """";
+        }
+        char ac[] = a.toCharArray();
+        char bc[] = b.toCharArray();
+        int[][] r = new int[m][n];
+        int maxLen = 0;
+        StringBuilder sb = new StringBuilder();
+        int curr = 0;
+        int last = 0;
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(ac[i] !=  bc[j]) r[i][j] = 0;
+                else{
+                    if(i == 0 || j == 0) r[i][j] = 1;
+                    else r[i][j] = r[i-1][j-1] + 1;
+                }
+                if(r[i][j] > maxLen){
+                    maxLen = r[i][j];
+                    curr = i - r[i][j] + 1;
+                    if(curr == last){
+                        sb.append(ac[i]);
+                    }else{
+                        last = curr;
+                        sb = new StringBuilder();
+                        sb.append(a.substring(last, i+1));
+                    }
+                }
+            }
+        }
+        return sb.toString();
+    }
+}",,,,
+Array,Longest increasing subsequence,,,,,,
+Array,"find one missing number in N numbers in range [0, N]","1. Get the sum of numbers 
+       total = n*(n+1)/2
+2  Subtract all the numbers from sum and
+   you will get the missing number.
+
+
+ 1) XOR all the array elements, let the result of XOR be X1.
+  2) XOR all numbers from 1 to n, let XOR be X2.
+  3) XOR of X1 and X2 gives the missing number.",,,,,
+Array,"find two missing number in N numbers in range [0, N]",,"void findMissing(int A[], int n){
+    for(int i = 0; i< n; i++){
+        while(A[i] != i && A[i] != A[A[i]] ){
+            swap(A[i], A[A[i]]);
+        }
+    }
+    for(int i = 0; i < n; i++){
+        if(A[i] != i){
+            cout << i << "" "";
+        }
+    }
+    cout << endl;
+}
+
+",,,,
+Tree,"pre/in/post-order traversal, recursive","pre
+root;pre(root->left);pre(root->right)
+in
+in(root->left);root;in(root->right)
+post
+post(root->left);post(root->right);root",,,,,
+Tree,pre traversal iterative,,"void preorderIterative(Node *root){
+    if(root == NULL) return;
+    stack<Node *> s;
+    Node *curr = root;
+    s.push(curr);
+    while(!s.empty()){
+        curr = s.top();
+        s.pop();
+        cout << curr->data << "" "";
+        if(curr->right){
+            s.push(curr->right);
+        }
+        if(curr->left){
+            s.push(curr->left);
+        }
+    }
+}",,,,
+Tree,inorder traversal iterative,,"void inorderIterative(Node *root){
+    stack<Node *> s;
+    Node *curr = root;
+    bool done = false;
+    while(!done){
+        if(curr){
+            s.push(curr);
+            curr = curr->left;
+        }else{
+            if(s.empty()){
+                done = true;
+            }else{
+                curr = s.top();
+                s.pop();
+                cout << curr->data << "" "";
+                curr = curr->right;
+            }
+        }
+    }
+}",,,,
+,preorder traversal iterative,"We use a prev variable to keep track of the previously-traversed node. Let’s assume curr is the current node that’s on top of the stack. When prev is curr‘s parent, we are traversing down the tree. In this case, we try to traverse to curr‘s left child if available (ie, push left child to the stack). If it is not available, we look at curr‘s right child. If both left and right child do not exist (ie, curr is a leaf node), we print curr‘s value and pop it off the stack.
+If prev is curr‘s left child, we are traversing up the tree from the left. We look at curr‘s right child. If it is available, then traverse down the right child (ie, push right child to the stack), otherwise print curr‘s value and pop it off the stack.
+If prev is curr‘s right child, we are traversing up the tree from the right. In this case, we print curr‘s value and pop it off the stack.","if(root == NULL) return;
+    stack<Node *> s;
+    Node *curr = root;
+    s.push(curr);
+    while(!s.empty()){
+        curr = s.top();
+        s.pop();
+        cout << curr->data << "" "";
+        if(curr->right){
+            s.push(curr->right);
+        }
+        if(curr->left){
+            s.push(curr->left);
+        }
+    }
+
+",,,,
+,postorder traversal iterative,,"void postOrderTwoStack(Node *root){
+    if(root == NULL) return;
+    stack<Node *> s;
+    stack<Node *> output;
+    Node *curr = root;
+    s.push(root);
+    while(!s.empty()){
+        curr = s.top();
+        output.push(curr);
+        s.pop();
+        if(curr->left){
+            s.push(curr->left);
+        }
+        if(curr->right){
+            s.push(curr->right);
+        }
+    }
+    while(!output.empty()){
+        cout << output.top()->data << "" "";
+        output.pop();
+    }
+}
+
+",,,,
+,find height of BT,,"int maxDeep(Node *root){
+    if(root == NULL) return 0;
+    return max(maxDeep(root->left), maxDeep(root->right)) + 1;
+}
+
+",,,,
+," find ""next"" node of a given node in inorder sequence","1) If node have right subtree:
+Return the leftmost node of the right subtree.
+2) If node does not have right subtree:
+The successor is one of the ancestor. Travel up using
+parent pointer until you see a node which is left child of it’s parent.","Node *minValue(Node *root){
+    Node *curr = root;
+    while(curr->left != NULL){
+        curr = curr->left;
+    }
+    return curr;
+}
+Node *findSuccessor(Node *root, Node *n){
+    if(n->right != NULL){
+        return minValue(n->right);
+    }
+    Node *succ = NULL;
+    while(root != NULL){
+        if(n->data < root->data){
+            succ = root;
+            root = root->left;
+        }else if(n->data > root->data){
+            root = root->right;
+        }else
+            break;
+    }
+    return succ;
+
+}
+
+",,,,
+Tree, determine IsBST,"1. inorder traversal, check the output increase or not.
+2. use min and max, checkBST(n, INT_MIN, INT_MAX)
+if(n.data <= min || n.data > max) return false;
+if(!check(n.left, min, n.data) || !check(n.right, n.data, max)){
+return false;
+}
+return true
+",,,,,
+Tree,find k-th inorder element,if k == number of (n->left) return n;,,,,,
+String, remove duplicate characters in O(1) space,"1) Sort the string
+2) In a loop, remove the duplicate by compare the current element with previous character
+3) Remove the extra character at the end of resultant string 
+O(nlogn)
+Use hash. O(n) ",,,,,
+Tree,print Binary Tree by level order,"void printLevelOrder(BinaryTree *root) {
+  if (!root) return;
+  queue<BinaryTree*> nodesQueue;
+  int nodesInCurrentLevel = 1;
+  int nodesInNextLevel = 0;
+  nodesQueue.push(root);
+  while (!nodesQueue.empty()) {
+    BinaryTree *currNode = nodesQueue.front();
+    nodesQueue.pop();
+    nodesInCurrentLevel--;
+    if (currNode) {
+      cout << currNode->data << "" "";
+      nodesQueue.push(currNode->left);
+      nodesQueue.push(currNode->right);
+      nodesInNextLevel += 2;
+    }
+    if (nodesInCurrentLevel == 0) {
+      cout << endl;
+      nodesInCurrentLevel = nodesInNextLevel;
+      nodesInNextLevel = 0;
+    }
+  }
+}
+
+","void printLevelOrder(BinaryTree *root) {
+  if (!root) return;
+  queue<BinaryTree*> currentLevel, nextLevel;
+  currentLevel.push(root);
+  while (!currentLevel.empty()) {
+    BinaryTree *currNode = currentLevel.front();
+    currentLevel.pop();
+    if (currNode) {
+      cout << currNode->data << "" "";
+      nextLevel.push(currNode->left);
+      nextLevel.push(currNode->right);
+    }
+    if (currentLevel.empty()) {
+      cout << endl;
+      swap(currentLevel, nextLevel);
+    }
+  }
+}
+",,,,
+Tree,find lowest common ancester,Worst Time O(n),"Node *LCA(Node *root, Node *p, Node *q){
+if(root == NULL) return NULL;
+if(root == p || root == q) return root;
+Node *L = LCA(root->left, p, q);
+Node *R = LCA(root->right, p, q);
+if(L&&R) return root;
+else return L? L:R;
+}",,,,
+Integer,"Binary representation of a given number
+",we can check the number bit by bit.,"void mybinary(int num){
+    unsigned i;
+    for(i = 1 << 31; i > 0; i = i/2){
+        (num&i)? cout << ""1"" : cout << ""0"";
+    }
+}",,,,
+Array,rotate an array in place,"reverse(str, 0, k);
+reverse(str, k, n);
+reverse(str, 0, n);",,,,,
+Array,Shuffle algorithm,,"void shuffle(char* arr, int len)
+{
+    int i = len, j;
+    char temp;
+ 
+    if( i == 0 ) return;
+    while( --i ) {
+        j = rand() % (i+1);
+        temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
+
+
+",,,,
+Linklist,Delete a linklist node in O(1) time,"Two conditions:
+1. if the node is not in the tail of linklist, we can  copy node->next to toBeDeleteNode, then delete the node->next
+2. if the node is in the tail of linklist, we can traverse the linklist from begining to the node before the toBeDeleteNode, then delete the node.","void deleteNode(Node *root, Node *n){
+    if(n->next != NULL){
+        Node *tmp = n->next;
+        n->value = tmp->value;
+        n->next = tmp->next;
+        delete tmp;
+        tmp = NULL;
+    }else{
+        Node *curr = root;
+        while(curr->next != n){
+            curr = curr->next;
+        }
+        curr->next = NULL;
+        delete n;
+        n = NULL;
+    }
+}
+
+",,,,
+Array,"Array every element appear twice, except two, find them out.","First we can consider the simple sceneario, in the array only one number appear once. we can use xor one by one, then the result is the number which only appear once.
+Then this situtaion, we can first find the xorResult, from this number we can see that the first different num position. Then we can seperate the number to two set according to the that firstDifferentIndex, one is at that index is 0, another is 1, then we can apply the simple sceneario, then we can get the result.","public class Sol{
+    public static void findNum(int array[]){
+        int len = array.length;
+        int xorResult = 0;
+        for(int i = 0; i < len; i++){
+            xorResult ^= array[i];
+        }
+        int num1 = 0;
+        int num2 = 0;
+        int index = findFirstBit(xorResult);
+        for(int i = 0; i < len; i++){
+            if(isBit1(array[i], index)){
+                num1 ^= array[i];
+            }else {
+                num2 ^= array[i];
+            }
+        }
+        System.out.println(num1);
+        System.out.println(num2);
+
+    }
+    public static int findFirstBit(int num){
+        int r = 0;
+        int one = 1;
+        while(true){
+            if((num & one) == 0){
+                one = one << 1;
+                r++;
+                continue;
+            }else{
+                break;
+            }
+        }
+        return r;
+    }
+    public static boolean isBit1(int num, int index){
+        int one = 1 << index;
+        if((num & one) == 0){
+            return false;
+        }else return true;
+    }
+
+",,,,
+Linklist,Find two linklist first common node,"1. find the difference length of two linklist
+2. move the long linklist forward to the difference length, then move two linklist pointer together, if reach to the end, no common node, the two linklist no common node, otherwise, it will meet in some node. 
+3. return the node we find",,,,,
+String,Delete specfic string in another string,"1. Build a hashTable with 256 size, initialize the hashTable with sting which is need to be deleted.
+2. make two pointer, slow and fast, if fast find the value exists in hashTable, move to next, when find the value not in hashTable, copy to the slow pointer, move both to next
+3. when finished, set slow to '\0'","void deleteString(char *str, char *d){
+    int tablesize = 256;
+    int hashTable[tablesize];
+    memset(hashTable, 0, sizeof(hashTable));
+    while(*d != '\0'){
+        hashTable[*d] = 1;
+        d++;
+    }
+    char *pSlow = str;
+    char *pFast = str;
+    while(*pFast != '\0'){
+        if(hashTable[*pFast] != 1){
+            *pSlow = *pFast;
+            pSlow++;
+        }
+        pFast++;
+    }
+    *pSlow = '\0';
+}
+
+",,,,
+Integer,Find ugly number,,,,,,
+Tree,Trie,,,,,,
+Integers,"Best Time to Buy and Sell Stock II
+","This Question is trying to find the maximum increasing sequence sum, use greedy algorithm.","public int maxProfit(int[] prices) {        if(prices == null) return 0;        int len = prices.length;        if(len < 2 ){            return 0;        }        int max = 0;        for(int i = 1; i < len; i++){            if(prices[i] > prices[i-1]){                max = max + prices[i] - prices[i-1];            }        }        return max;    } ",,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
