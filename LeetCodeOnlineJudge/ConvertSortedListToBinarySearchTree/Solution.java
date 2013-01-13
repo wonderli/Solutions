@@ -1,6 +1,7 @@
 //Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
 public class Solution {
-        public TreeNode sortedListToBST(ListNode head) {
+    public ListNode listNode = null;
+    public TreeNode sortedListToBST(ListNode head) {
             if(head == null) return null;
             int len = 0;
             ListNode n = head;
@@ -8,16 +9,17 @@ public class Solution {
                 n = n.next;
                 len++;
             }
-            return f(head, 0, len - 1);
+            listNode = head;
+            return f(0, len - 1);
         }
-        public TreeNode f(ListNode head, int start, int end){
+        public TreeNode f(int start, int end){
             if(start > end) return null;
             int mid = start + (end - start)/2;
-            TreeNode left = f(head, start, mid - 1);
-            TreeNode root = new TreeNode(head.val);
+            TreeNode left = f(start, mid - 1);
+            TreeNode root = new TreeNode(listNode.val);
             root.left = left;
-            head = head.next;
-            TreeNode right = f(head, mid + 1, end);
+            listNode = listNode.next;
+            TreeNode right = f(mid + 1, end);
             root.right = right;
             
             return root;
