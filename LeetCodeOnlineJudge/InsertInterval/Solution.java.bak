@@ -1,0 +1,122 @@
+//Given a set of non-overlapping intervals, insert a new interval into the intervals (merge if necessary).
+//
+//You may assume that the intervals were initially sorted according to their start times.
+//
+//Example 1:
+//Given intervals [1,3],[6,9], insert and merge [2,5] in as [1,5],[6,9].
+//
+//Example 2:
+//Given [1,2],[3,5],[6,7],[8,10],[12,16], insert and merge [4,9] in as [1,2],[3,10],[12,16].
+//
+//This is because the new interval [4,9] overlaps with [3,5],[6,7],[8,10]. 
+import java.util.*;
+public class Solution{
+    public ArrayList<Interval> insert(ArrayList<Interval> intervals, Interval newInterval) {
+        if(intervals.size() < 1){
+            ArrayList<Interval> ret = new ArrayList<Interval>();
+            ret.add(newInterval);
+            return ret;
+        }
+        int i = 0;
+        ArrayList<Interval> ret = new ArrayList<Interval>();
+        int len = intervals.size();
+        int a = 0;
+        int b = 0;
+        int c = 0;
+        int d = 0;
+        for(i = 0; i < len; i++){
+            Interval curr =intervals.get(i);
+            a = curr.start;
+            b = curr.end;
+            c = newInterval.start;
+            d = newInterval.end;
+            if(b < c || d < a){
+                ret.add(curr);
+                ret.add(newInterval);
+            }else{
+                if(a <= d && d <= b && c<= a){
+                    newInterval.start = c;
+                    newInterval.end = d;
+                    ret.add(newInterval);
+                }else if(a <= c && c <= b && d >= b){
+                    newInterval.start = a;
+                    newInterval.end = d;
+                    ret.add(newInterval);
+                }else if(c <= a && b <= d){
+                    newInterval.start = c;
+                    newInterval.end = d;
+                    ret.add(newInterval);
+                }else if(a <= c && d <= b){
+                    newInterval.start = a;
+                    newInterval.end = b;
+                    ret.add(newInterval);
+                }
+            }
+        }
+        //for(Interval e : ret){
+        //    System.out.println("[" + e.start + " " + e.end + "]");
+        //}
+
+        ArrayList<Interval> r = new ArrayList<Interval>();
+        Interval curr = null;
+        Interval next = null;
+        curr = ret.get(0);
+
+        for(i = 0; i < ret.size() - 1;){
+            boolean flag = true;
+            while(flag){
+                a = curr.start;
+                b = curr.end;
+                next = ret.get(i + 1);
+                c = next.start;
+                d = next.end;
+                if(b < c || d < a){
+                    flag = false;
+                    i++;
+                    r.add(curr);
+                    curr = next; 
+                }else{
+                    if(a <= d && d <= b && c<= a){
+                        curr.start = c;
+                        curr.end = d;
+                        i++;
+                    }else if(a <= c && c <= b && d >= b){
+                        curr.start = a;
+                        curr.end = d;
+                        i++;
+                    }else if(c <= a && b <= d){
+                        curr.start = c;
+                        curr.end = d;
+                        i++;
+                    }else if(a <= c && d <= b){
+                        curr.start = a;
+                        curr.end = b;
+                        i++;
+                    }
+                    
+                }
+
+            }
+        }
+        for(Interval e : r){
+            System.out.println("[" + e.start + " " + e.end + "]");
+        }
+
+        return r;
+    }
+    public static void main(String args[]){
+        Solution s = new Solution();
+        ArrayList<Interval> input = new ArrayList<Interval>();
+        Interval num1 = new Interval(1, 5);
+        //Interval num2 = new Interval(6,8);
+        Interval newInterval = new Interval(6,8);
+        input.add(num1);
+        //input.add(num2);
+
+        ArrayList<Interval> output = s.insert(input, newInterval);
+        for(Interval e : output){
+            System.out.println("[" + e.start + " " + e.end + "]");
+        }
+    }
+}
+
