@@ -39,9 +39,21 @@ public class Solution{
         if(sf && !ef) return start - end + 1;
         return s.length();
     }
+    public int lengthOfLastWord2(String s){
+        if(s == null || s.length() < 1) return 0;
+        int len = s.length();
+        int i = len - 1;
+        int size = 0;
+        while(i >= 0 && s.charAt(i) == ' ') i--;
+        while(i >= 0 && s.charAt(i) != ' '){
+            i--;
+            size++;
+        }
+        return size;
+    }
     public static void main(String args[]){
         Solution s = new Solution();
         String str = new String("aa ");
-        System.out.println(s.lengthOfLastWord(str));
+        System.out.println(s.lengthOfLastWord2(str));
     }
 }
