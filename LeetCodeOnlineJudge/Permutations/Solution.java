@@ -24,11 +24,6 @@ public class Solution{
         }
         return ret;
     }
-    public void swap(int[] num, int i, int j){
-        int tmp = num[i];
-        num[i] = num[j];
-        num[j] = tmp;
-    }
     public static void main(String args[]){
         Solution sol = new Solution();
         int num[] = {1, 2, 3};
