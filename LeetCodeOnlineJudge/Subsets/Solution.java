@@ -15,7 +15,6 @@ public class Solution{
     }
     public ArrayList<ArrayList<Integer>> helper(int[] S, int index){
         ArrayList<ArrayList<Integer>> allSubset = new ArrayList<ArrayList<Integer>>();
-        //if(S.length == index){
         if(index == 0){
             allSubset.add(new ArrayList<Integer>());
             return allSubset;
