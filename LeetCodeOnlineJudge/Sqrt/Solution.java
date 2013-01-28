@@ -31,10 +31,10 @@ public class Solution{
         }
         return (int)r;
     }
-    public static void main(String args[]){
+        public static void main(String args[]){
         Solution sol = new Solution();
-        //int x = 2147483647;
-        int x = 3;
+        int x = 2147483647;
+        //int x = 16;
         System.out.println(sol.sqrt(x));
     }
 }
