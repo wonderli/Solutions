@@ -12,11 +12,9 @@ public class Solution{
                 i++;
                 j++;
             }else{
-                if(t[i] != p[j]){
-                    i = begin;
-                    begin++;
-                    j = 0;
-                }
+                begin++;
+                i = begin;
+                j = 0;
             }
         }
         if(j == pLen){
