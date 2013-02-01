@@ -4,7 +4,6 @@ public class Solution{
         Stack<TreeNode> s = new Stack<TreeNode>();
         ArrayList<Integer> ret = new ArrayList<Integer>();
         TreeNode curr = root;
-        TreeNode prev = null;
         while(!s.empty() || curr != null){
             if(curr != null){
                 s.push(curr);
