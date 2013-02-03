@@ -18,12 +18,12 @@ public class Solution{
         if(root.left == null && root.right == null && sum - root.val != 0){
             return;
         }
-        ArrayList<Integer> c = (ArrayList<Integer>) a.clone();
-        a.add(root.val);
-        helper(root.left, sum - root.val, a, ans);
-        a = c;
-        a.add(root.val);
-        helper(root.right, sum - root.val, a, ans);
+        ArrayList<Integer> left = new ArrayList<Integer>(a);
+        left.add(root.val);
+        helper(root.left, sum - root.val, left, ans);
+        ArrayList<Integer> right = new ArrayList<Integer>(a);
+        right.add(root.val);
+        helper(root.right, sum - root.val, right, ans);
     }
     public static void main(String args[]){
         Solution sol = new Solution();
