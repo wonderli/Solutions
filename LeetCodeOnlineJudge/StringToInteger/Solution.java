@@ -20,9 +20,9 @@ public class Solution{
             start = start + 1;
         }
         
-        while(start < len && !Character.isDigit(str.charAt(start))){
-            return 0;
-        }
+        //while(start < len && !Character.isDigit(str.charAt(start))){
+        //    return 0;
+        //}
 
         long ans = 0;
         for(int i = start; i < len; i++){
