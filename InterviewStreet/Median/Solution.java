@@ -9,8 +9,8 @@ public class Solution {
         TreeNode left;
         TreeNode right;
         TreeNode parent;
-        int val;
-        TreeNode(int x){
+        double val;
+        TreeNode(double x){
             left = null;
             right = null;
             parent = null;
@@ -25,14 +25,14 @@ public class Solution {
         int right = treeNodeNum(root.right);
         return left + right + 1;
     }
-    public void insert(int n){
+    public void insert(double n){
         if(r == null){
             r = new TreeNode(n);
             return;
         }
         insert(r, n);
     }
-    public void insert(TreeNode root, int n){
+    public void insert(TreeNode root, double n){
         if(root == null) 
             root = new TreeNode(n);
         else if(n < root.val){
@@ -51,7 +51,7 @@ public class Solution {
             }
         }
     }
-    public TreeNode search(TreeNode root, int n){
+    public TreeNode search(TreeNode root, double n){
         if(root == null || root.val == n) return root;
         if(n < root.val){
             return search(root.left, n);
@@ -104,81 +104,85 @@ public class Solution {
         }
         return prev;
     }
-    public boolean deleteNode(){
-        if(r == null) return false;
-        if(toBeDelete == null) return false;
-        if(toBeDelete.left == null && toBeDelete.right == null){
-            TreeNode parent = toBeDelete.parent;
-            if(toBeDelete == parent.left){
-                parent.left = null;
-            }else{
-                parent.right = null;
+    public void transplant(TreeNode x, TreeNode y){
+        if(x.parent == null){
+            r = y;
+        }else if(x == x.parent.left){
+            x.parent.left = y;
+        }else 
+            x.parent.right = y;
+        if(y != null){
+            y.parent = x.parent;
+        }
+    }
+    public void deleteNode(){
+        if(toBeDelete.left == null){
+            transplant(toBeDelete, toBeDelete.right);
+        }else if(toBeDelete.right == null){
+            transplant(toBeDelete, toBeDelete.left);
+        }else{
+            TreeNode y = minValue(toBeDelete.right);
+            if(y.parent != toBeDelete){
+                transplant(y, y.right);
+                y.right = toBeDelete.right;
+                y.right.parent = y;
             }
-            toBeDelete = null;
-            return true;
+            transplant(toBeDelete, y);
+            y.left = toBeDelete.left;
+            y.left.parent = y;
         }
-        if(toBeDelete.left != null && toBeDelete.right == null){
-            TreeNode parent = toBeDelete.parent;
-            parent.left = toBeDelete.left;
-            toBeDelete.left.parent = parent;
-            toBeDelete = null;
-            return true;
-        }
-        if(toBeDelete.right != null && toBeDelete.left == null){
-            TreeNode parent = toBeDelete.parent;
-            parent.right = toBeDelete.right;
-            toBeDelete.right.parent = parent;
-            toBeDelete = null;
-            return true;
-        }
-        if(toBeDelete.left != null && toBeDelete.right != null){
-            TreeNode succ = successor(r, toBeDelete);
-            toBeDelete.val = succ.val;
-            toBeDelete = succ;
-            return deleteNode();
-        }
-        return false;
 
     }
-    public void solve(String order, int num){
+    public void solve(String order, double num, StringBuilder sb){
         if(order.equals("r")){
             if(search(r, num) == null){
-                System.out.println("Wrong!");
+                //System.out.println("Wrong!");
+                sb.append("Wrong!\n\n");
                 return;
             }else{
                 toBeDelete = search(r, num);
                 deleteNode();
-                System.out.println("Median is " + getMedian());
+                if(r == null){
+                    sb.append("Wrong!\n\n");
+                    return;
+                }
+                //System.out.println("Median is " + getMedian());
+                sb.append(getMedian());
+                sb.append("\n\n");
             }
         }else if(order.equals("a")){
             insert(num);
-            System.out.println();
-            System.out.println("Median is " + getMedian());
-            System.out.println();
+            //System.out.println();
+            //System.out.println("Median is " + getMedian());
+            //System.out.println();
+            sb.append(getMedian());
+            sb.append("\n\n");
         }
     }
-    public int getMedian(){
+    public double getMedian(){
         int nodesNum = treeNodeNum(r);
         //System.out.println("Nodes Number: " + nodesNum);
         if(nodesNum % 2 == 1){
             return helper(nodesNum/2);
         }else {
-            int l = helper(nodesNum/2);
-            int x = 0;
+            double l = helper(nodesNum/2);
+            double x = 0;
             TreeNode c = search(r, l);
             TreeNode succ = successor(r, c);
             //System.out.println("Even " + succ.val + " + " + l);
             if(succ != null){
-               x = succ.val;
+                x = succ.val;
             }else{
                 TreeNode prev = predecessor(r, c);
                 x = prev.val;
-                
+
             }
             return (x + l)/2;
         }
     }
-    public int helper(int k){
+    
+    public double helper(int k){
+        if(k == 0) return minValue(r).val;
         Stack<TreeNode> stack = new Stack<TreeNode>();
         TreeNode pCrawl = r;
         while(pCrawl != null){
@@ -205,7 +209,8 @@ public class Solution {
     public void print(TreeNode root){
         if(root == null) return;
         print(root.left);
-        System.out.print(root.val + " ");
+        System.out.println(root.val + " " + "parent " + ((root.parent == null) ? "NULL " : root.parent.val));
+        //System.out.print(root.val + " " + "parent " + ((root.parent == null) ? "NULL " : root.parent.val));
         print(root.right);
         //TreeNode succ = null;
         //TreeNode prev = null;
@@ -220,35 +225,45 @@ public class Solution {
         //}
     }
     public void buildTree(){
-        insert(2);
         insert(1);
-        insert(4);
-        insert(5);
-        insert(10);
-        insert(15);
-        insert(14);
-        insert(20);
-        toBeDelete = search(r, 20);
+        System.out.println();
+        print(r);
+        insert(1);
+        System.out.println();
+        print(r);
+        insert(2);
+        System.out.println();
+        print(r);
+        //insert(5);
+        //insert(10);
+        //insert(15);
+        //insert(14);
+        //insert(20);
+        toBeDelete = search(r, 1);
         deleteNode();
+        System.out.println();
+        print(r);
     }
     public static void main(String[] args) {
         Solution sol = new Solution();
         Scanner sc = new Scanner(System.in);
         sol.r = null;
         sol.toBeDelete = null;
-        //int N = sc.nextInt();
-        //while(sc.hasNext()){
-        //    String action = sc.next();
-        //    int num = Integer.parseInt(sc.next());
-        //    sol.solve(action, num);
-        //    System.out.println("Tree: ");
-        //    sol.print(sol.r);
-        //    System.out.println();
-        //    //System.out.println("Nodes: " + sol.treeNodeNum(sol.r));
-        //}
-        sol.buildTree();
-        sol.print(sol.r);
-        System.out.println("wtf");
+        int N = sc.nextInt();
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < N; i++){
+            String action = sc.next();
+            double num = Double.parseDouble(sc.next());
+            sol.solve(action, num, sb);
+            //sol.print(sol.r);
+            //System.out.println();
+            //System.out.println("Nodes: " + sol.treeNodeNum(sol.r));
+        }
+        //sol.buildTree();
+        //sol.print(sol.r);
+        //System.out.println("wtf");
         //sol.getMedian();
+        System.out.println();
+        System.out.println(sb.toString());
     }
 }
