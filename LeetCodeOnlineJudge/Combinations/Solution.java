@@ -17,7 +17,7 @@ public class Solution{
            result.add(new ArrayList<Integer>(curr));
            return;
         }
-        for(int i = index; i <= n; i++){
+        for(int i = index; i < n; i++){
             curr.add(i + 1);
             solve(n, k, i+1, result, curr);
             curr.removeLast();
