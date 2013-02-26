@@ -13,25 +13,22 @@ public class Solution{
          ArrayList<Integer> curr = new ArrayList<Integer>();
          ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();
          int index = 0;
-         helper(num, ret, curr, index);
+         helper(index, num, ret, curr);
          return ret;
      }
-     public void helper(int[] num, ArrayList<ArrayList<Integer>> ret, ArrayList<Integer> curr, int index){
+     public void helper(int index, int[] num, ArrayList<ArrayList<Integer>> ret, ArrayList<Integer> curr){
          if(index == num.length){
-             //System.out.println("ADD\t" + curr);
              ret.add(curr);
              return;
          }
          for(int i = index; i < num.length; i++){
              if(i > index && num[i] == num[i-1]) continue;
-             ArrayList<Integer> e = (ArrayList<Integer>)curr.clone();
+             ArrayList<Integer> t = new ArrayList<Integer>(curr);
              curr.add(num[i]);
-             //System.out.println("Inside:\t" + curr);
-             helper(num, ret, curr, i + 1);
-             curr = e;
+             helper(i + 1, num, ret, curr);
+             curr = t;
          }
-         //System.out.println("TEST:\t" + curr);
-         helper(num, ret, curr, num.length);
+         helper(num.length, num, ret, curr);
      }
     public static void main(String args[]){
         Solution sol = new Solution();
