@@ -37,9 +37,6 @@ public class Solution{
             if(r == row){
                 return false;
             }
-            if(c == col){
-                return false;
-            }
             if(r-c == row - col || r + c == row + col){
                 return false;
             }
