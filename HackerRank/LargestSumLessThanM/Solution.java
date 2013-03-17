@@ -25,9 +25,9 @@ public class Solution {
     public static int helper(int n, int m){
         if(n < 1||m < 1) return 0;
         if(n == 1||m == 1) return 1;
-        if(n < m) return helper(n, n);
-        if(n == m) return helper(n, m-1) + 1;
-        if(n > m) return helper(n, m-1) + helper(n-m, m);
+        if(n < m) return helper(n, n)%1000000007;
+        if(n == m) return (helper(n, m-1) + 1)%1000000007;
+        if(n > m) return (helper(n, m-1) + helper(n-m, m))%1000000007;
         return 0;
     }
     public static void main(String[] args) {
