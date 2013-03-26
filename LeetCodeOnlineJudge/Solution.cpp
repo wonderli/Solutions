@@ -5,6 +5,7 @@
 #include <string>
 #include <queue>
 #include <sstream>
+#define p(x) std::cout << #x << ": " << x << std::endl;
 using namespace std;
 struct ListNode {
     int val;
