@@ -30,5 +30,4 @@ void getAbs(int v){
 int main(){
     int v = -10;
     getAbs(v);
-    getAbs(-v);
 }
