@@ -1,6 +1,6 @@
 import java.util.*;
 import java.io.*;
-public class Solution{
+public class Main{
     public static void solve(String input, ArrayList<String> ret){
         StringTokenizer st = new StringTokenizer(input, ";,");
         String text = null;
@@ -62,25 +62,19 @@ public class Solution{
         }
     }
     public static void main(String args[]){
-        if(args.length < 1){
-            System.out.println("Usage: java Solution inputFile");
-            return;
-        }
-        String pathName = args[0];
         //System.out.println(pathName);
         try{
-            FileInputStream fs = new FileInputStream(pathName);
-            DataInputStream in = new DataInputStream(fs);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            File file = new File(args[0]);
+            BufferedReader in = new BufferedReader(new FileReader(file));
             String line;
             ArrayList<String> ret = new ArrayList<String>();
-            while((line = br.readLine()) != null){
+            while((line = in.readLine()) != null){
                 solve(line, ret);
             }
             in.close();
             printResult(ret);
-        }catch(Exception e){
-            System.err.println("Error: " + e.getMessage());
+        }catch(IOException e){
+            System.out.println("File Read Error: " + e.getMessage());
         }
 
     }
