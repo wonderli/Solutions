@@ -20,19 +20,26 @@ public class Main{
         for(int i = 0; i < size; i+=2){
             String a = replaceList.get(i);
             String b = replaceList.get(i+1);
+            //System.out.println(Arrays.toString(mark));
             int index = strstr(text, a, mark);
+            if(index == -1 ) continue;
             text = text.substring(0, index) + b + text.substring(index + a.length());
-            markLast(mark, index, index + b.length());
+            boolean newmark[] = new boolean[text.length()];
+            markLast(mark, newmark, index, index + b.length(), a.length());
+            mark = newmark;
         }
         //System.out.println(text);
         ret.add(text);
     }
-    public static void markLast(boolean mark[], int start, int end){
-        for(int i = 0; i < mark.length; i++){
-            mark[i] = false; 
+    public static void markLast(boolean mark[], boolean newmark[], int start, int end, int aLen){
+        for(int i = 0; i < start; i++){
+            newmark[i] = mark[i]; 
         }
         for(int i = start; i < end; i++){
-            mark[i] = true;
+            newmark[i] = true;
+        }
+        for(int i = end, j = start + aLen; i < newmark.length && j < mark.length; i++, j++){
+            newmark[i] = mark[j];
         }
     }
     public static int strstr(String text, String a, boolean mark[]){
@@ -52,9 +59,9 @@ public class Main{
             }
         }
         if(j == aLen){
-            begin = i - aLen;
+            return i - aLen;
         }
-        return begin;
+        return -1;
     }
     public static void printResult(ArrayList<String> ret){
         for(String str : ret){
