@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 public class Main{
-    public static void solve(String input, ArrayList<String> ret){
+    public void solve(String input, ArrayList<String> ret){
         StringTokenizer st = new StringTokenizer(input, ";,");
         String text = null;
         if(st.hasMoreTokens()){
@@ -16,33 +16,47 @@ public class Main{
         }
         //System.out.println(replaceList);
         int size = replaceList.size();
+        if(size%2 != 0){
+            ret.add("Invalid number of arguments:");
+            return;
+        }
         boolean  mark[] = new boolean[len];
+        for(int i = 0; i < len; i++){
+            mark[i] =false;
+        }
         for(int i = 0; i < size; i+=2){
             String a = replaceList.get(i);
             String b = replaceList.get(i+1);
             //System.out.println(Arrays.toString(mark));
-            int index = strstr(text, a, mark);
-            if(index == -1 ) continue;
-            text = text.substring(0, index) + b + text.substring(index + a.length());
-            boolean newmark[] = new boolean[text.length()];
-            markLast(mark, newmark, index, index + b.length(), a.length());
-            mark = newmark;
+            while(true){
+                int index = strstr(text, a, mark);
+                if(index == -1 ) break;
+            //System.out.println("find\t" + a);
+            //System.out.println("replace\t" + b);
+            //System.out.println("Before\t" + text);
+            //System.out.println("index\t" + index);
+                text = text.substring(0, index) + b + text.substring(index + a.length());
+            //System.out.println("After\t" + text);
+                boolean newmark[] = new boolean[text.length()];
+                markLast(mark, newmark, index, b.length(), a.length());
+                mark = newmark;
+            }
         }
         //System.out.println(text);
         ret.add(text);
     }
-    public static void markLast(boolean mark[], boolean newmark[], int start, int end, int aLen){
-        for(int i = 0; i < start; i++){
-            newmark[i] = mark[i]; 
+    public void markLast(boolean mark[], boolean newmark[], int start, int bLen, int aLen){
+        for(int i = 0, j = 0; i < newmark.length && j < start; i++, j++){
+            newmark[i] = mark[j]; 
         }
-        for(int i = start; i < end; i++){
+        for(int i = start; i < newmark.length && i < start + bLen; i++){
             newmark[i] = true;
         }
-        for(int i = end, j = start + aLen; i < newmark.length && j < mark.length; i++, j++){
+        for(int i = start + bLen, j = start + aLen; i < newmark.length && j < mark.length; i++, j++){
             newmark[i] = mark[j];
         }
     }
-    public static int strstr(String text, String a, boolean mark[]){
+    public int strstr(String text, String a, boolean mark[]){
         int len = text.length();
         int aLen = a.length();
         int i = 0;
@@ -63,23 +77,24 @@ public class Main{
         }
         return -1;
     }
-    public static void printResult(ArrayList<String> ret){
+    public void printResult(ArrayList<String> ret){
         for(String str : ret){
             System.out.println(str);
         }
     }
     public static void main(String args[]){
         //System.out.println(pathName);
+        Main m = new Main();
         try{
             File file = new File(args[0]);
             BufferedReader in = new BufferedReader(new FileReader(file));
             String line;
             ArrayList<String> ret = new ArrayList<String>();
             while((line = in.readLine()) != null){
-                solve(line, ret);
+                m.solve(line, ret);
             }
             in.close();
-            printResult(ret);
+            m.printResult(ret);
         }catch(IOException e){
             System.out.println("File Read Error: " + e.getMessage());
         }
