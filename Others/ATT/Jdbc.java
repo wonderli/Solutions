@@ -8,7 +8,8 @@ public class Jdbc{
         Connection conn = null;
         Statement stmt = null;
         try{
-            Class.forName(JDBC_DRIVER).newInstance();
+            //Class.forName(JDBC_DRIVER).newInstance();
+            Class.forName(JDBC_DRIVER);
             System.out.println("Connection to database...");
             conn = DriverManager.getConnection(DB_URL, USER, PASS);
             stmt = conn.createStatement();
