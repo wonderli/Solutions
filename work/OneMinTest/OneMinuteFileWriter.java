@@ -11,6 +11,7 @@ public class OneMinuteFileWriter implements Runnable {
         try{
             BufferedWriter out = new BufferedWriter(new FileWriter(filename));
             for(String s : writeQueue){
+                System.out.println(s);
                 out.write(s);
                 out.newLine();
             }
