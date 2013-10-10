@@ -44,6 +44,7 @@ char *getlog(void){
     log_t *p = headptr;
     while(p != NULL){
         len += strlen(p->item.string) + 1;
+        //len += strlen(p->item.string);
         p = p->next;
     }
     char *log = (char *) malloc(len);
@@ -110,4 +111,6 @@ int main(int argc, char **argv){
     clearlog();
     log = getlog();
     printf("LOG:\n%s\n", log);
+    //printf("%lu\n", sizeof(data_t));
+    //printf("%lu\n", sizeof(log_t));
 }
