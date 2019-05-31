@@ -6,7 +6,6 @@ public class Solution{
     }
     private TreeNode sortedArrayToBST(int[] nums, int left, int right){
         if(right < left) return null;
-        if(right == left) return new TreeNode(nums[left]);
         int mid = left + (right - left) /2;
         TreeNode n = new TreeNode(nums[mid]);
         n.left = sortedArrayToBST(nums, left, mid - 1);
