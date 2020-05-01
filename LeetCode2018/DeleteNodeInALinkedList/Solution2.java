@@ -1,9 +1,18 @@
 import java.util.*;
 public class Solution2{
     public void deleteNode(ListNode node) {
-        node.val = node.next.val;
-        node.next = node.next.next;
+        if(node == null) return;
+        ListNode prev = null;
+        while(node != null){
+            ListNode next = node.next;
+            if(next == null) break;
+            node.val = next.val;
+            prev = node;
+            node = node.next;
+        }
+        prev.next = null;
     }
+
     public static void main(String args[]){
         Solution2 sol = new Solution2();
     }
