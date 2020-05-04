@@ -2,15 +2,15 @@ import java.util.*;
 public class Solution2{
     public boolean isSymmetric(TreeNode root){
         if(root == null) return true;
-        return isMirror(root.left, root.right);
+        return isSymmetric(root.left, root.right);
     }
-    private boolean isMirror(TreeNode n1, TreeNode n2){
-        if(n1 == null && n2 == null) return true;
-        if(n1 == null || n2 == null) return false;
-        return (n1.val == n1.val) && isMirror(n1.left, n2.right) && isMirror(n1.right, n2.left);
+    private boolean isSymmetric(TreeNode left, TreeNode right){
+        if(left == null && right == null) return true;
+        if(left == null || right == null) return false;
+        return (left.val == right.val) && isSymmetric(left.left, right.right) && isSymmetric(left.right, right.left);
     }
     public static void main(String args[]){
-        Solution sol = new Solution();
+        Solution2 sol = new Solution2();
     }
 }
 class ListNode {
