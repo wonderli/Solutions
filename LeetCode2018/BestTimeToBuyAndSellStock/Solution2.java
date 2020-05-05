@@ -1,13 +1,15 @@
 import java.util.*;
 public class Solution2{
     public int maxProfit(int[] prices) {
-        int minPrice = Integer.MAX_VALUE;
+        if(prices == null || prices.length == 0) return 0;
+        int n = prices.length;
+        int min = Integer.MAX_VALUE;
         int max = 0;
-        for(int i = 0; i < prices.length; i++){
-            if(prices[i] < minPrice){
-                minPrice = prices[i];
+        for(int i = 0; i < n; i++){
+            if(prices[i] < min){
+                min = prices[i];
             }else {
-                max = Math.max(max, prices[i] - minPrice);
+                max =Math.max(max, prices[i] - min);
             }
         }
         return max;
