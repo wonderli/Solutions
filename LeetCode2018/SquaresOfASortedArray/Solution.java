@@ -1,24 +1,41 @@
 import java.util.*;
 public class Solution{
-    public int[] sortedSquares(int[] A) {
-    	int[] res = new int[A.length];
-    	int i = 0;
-    	int j = A.length -1;
-    	for(int m = A.length - 1; m >= 0; m--) {
-    		if(A[i] * A[i] > A[j] * A[j]) {
-    			res[m] = A[i] * A[i];
-    			i++;
-    		}else {
-    			res[m] = A[j] * A[j];
-    			j--;
-    		}
-    	}
-    	return res;
+    public int[] sortedSquares(int[] A){
+        if(A == null || A.length == 0) return A;
+        int j = 0;
+        while(j < A.length && A[j] < 0){
+            j++;
+        }
+        int i = j - 1;
+        int[] ret = new int[A.length];
+        int k = 0;
+        while(i >= 0 && j < A.length){
+            int a = A[i] * A[i];
+            int b = A[j] * A[j];
+            if(a < b){
+                ret[k] = a;
+                k++;
+                i--;
+            }else {
+                ret[k] = b;
+                k++;
+                j++;
+            }
+        }
+        while(i >= 0){
+            ret[k] = A[i] * A[i];
+            i--;
+            k++;
+        }
+        while(j < A.length){
+            ret[k] = A[j] * A[j];
+            j++;
+            k++;
+        }
+        return ret;
     }
     public static void main(String args[]){
         Solution sol = new Solution();
-        int[] a = {-4, -1, 0, 3, 10};
-        System.out.println(Arrays.toString(sol.sortedSquares(a)));
     }
 }
 class ListNode {
