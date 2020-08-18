@@ -2,34 +2,13 @@ import java.util.*;
 public class Solution{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         if(headA == null || headB == null) return null;
-        int lenA = getLen(headA);
-        int lenB = getLen(headB);
-        if(lenA > lenB){
-            headA = move(headA, lenA - lenB);
-        }else {
-            headB = move(headB, lenB - lenA);
+        ListNode p1 = headA;
+        ListNode p2 = headB;
+        while(p1 != p2){
+            p1 = p1 == null ? headB : p1.next;
+            p2 = p2 == null ? headA : p2.next;
         }
-        while(headA != null){
-            if(headA == headB) return headA;
-            headA = headA.next;
-            headB = headB.next;
-        }
-        return null;
-    }
-    public ListNode move(ListNode head, int len){
-        while(len > 0){
-            head = head.next;
-            len--;
-        }
-        return head;
-    }
-    public int getLen(ListNode head){
-        int i = 0;
-        while(head != null){
-            head = head.next;
-            i++;
-        }
-        return i;
+        return p1;
     }
     public static void main(String args[]){
         Solution sol = new Solution();
