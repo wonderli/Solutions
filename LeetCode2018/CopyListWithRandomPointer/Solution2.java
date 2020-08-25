@@ -1,7 +1,17 @@
 import java.util.*;
-public class Solution3{
+public class Solution2{
+        Map<Node, Node> map = new HashMap<>();
+    public Node copyRandomList(Node head) {
+        if(head == null) return head;
+        if(map.containsKey(head)) return map.get(head);
+        Node node = new Node(head.val);
+        map.put(head, node);
+        node.next = copyRandomList(head.next);
+        node.random = copyRandomList(head.random);
+        return node;
+    }
     public static void main(String args[]){
-        Solution3 sol = new Solution3();
+        Solution2 sol = new Solution2();
     }
 }
 class ListNode {
