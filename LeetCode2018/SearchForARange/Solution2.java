@@ -22,9 +22,9 @@ public class Solution2{
                 r = mid - 1;
             }else {
                 if(left){
-                    r--;
+                    r = mid - 1;
                 }else {
-                    l++;
+                    l = mid + 1;
                 }
             }
         }
