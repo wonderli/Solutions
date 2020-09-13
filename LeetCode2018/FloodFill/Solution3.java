@@ -3,6 +3,7 @@ public class Solution3{
     public int[][] floodFill(int[][] image, int sr, int sc, int newColor) {
         if(image == null || image.length == 0 || image[0].length == 0) return image;
         int original = image[sr][sc];
+        if(original == newColor) return image;
         helper(image, sr, sc, original, newColor);
         return image;
     }
