@@ -58,4 +58,4 @@ class TrieNode{
     Map<Character, TrieNode> children = new HashMap<>();
     int wordEnding = -1;
     List<Integer> palindromePrefixRemaining = new ArrayList<>();
-} 
+}  
