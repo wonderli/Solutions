@@ -1,28 +1,24 @@
 import java.util.*;
 public class Solution2{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        int lenA = getLen(headA);
-        int lenB = getLen(headB);
-        ListNode first = lenA < lenB ? headA : headB;
-        ListNode second = lenA < lenB ? headB : headA;
-        int diff = Math.abs(lenB - lenA);
-        for(int i = 0; i < diff; i++){
-            second = second.next;
+        int len1 = getLen(headA);
+        int len2 = getLen(headB);
+        ListNode a = len1 < len2 ? headA : headB;
+        ListNode b = len1 < len2 ? headB : headA;
+        for(int i = 0; i < Math.abs(len2 - len1); i++){
+            b = b.next;
         }
-        while(first != null && second != null && first != second){
-            first = first.next;
-            second = second.next;
+        while(a != null && b != null){
+            if(a == b) return a;
+            a = a.next;
+            b = b.next;
         }
-        if(first == null || second == null){
-            return null;
-        }
-        return first;
-
+        return null;
     }
-    public int getLen(ListNode node){
+    public int getLen(ListNode head){
         int len = 0;
-        while(node != null){
-            node = node.next;
+        while(head != null){
+            head = head.next;
             len++;
         }
         return len;
@@ -35,10 +31,5 @@ class ListNode {
     int val;
     ListNode next;
     ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
+    ListNode(int val, ListNode next) {this.val = val; this.next = next;}
 }
