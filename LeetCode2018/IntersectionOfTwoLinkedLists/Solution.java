@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution2{
+public class Solution{
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         int len1 = getLen(headA);
         int len2 = getLen(headB);
@@ -24,7 +24,7 @@ public class Solution2{
         return len;
     }
     public static void main(String args[]){
-        Solution2 sol = new Solution2();
+        Solution sol = new Solution();
     }
 }
 class ListNode {
