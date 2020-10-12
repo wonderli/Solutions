@@ -1,8 +1,8 @@
 import java.util.*;
 public class Solution2{
     public int mySqrt(int x) {
-        long guess = x;
-        while(guess *guess != x){
+        double guess = x;
+        while(guess * guess -x >= 1){
             guess = (guess + x/guess)/2;
         }
         return (int)guess;
