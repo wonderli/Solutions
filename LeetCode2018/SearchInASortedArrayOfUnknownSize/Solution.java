@@ -1,46 +1,37 @@
-import java.util.*;
-public class Solution{
-    public int search(ArrayReader reader, int target) {
-        int l = 0;
-        int r = 10000;
-        while(l <= r){
-            int mid = l + (r - l)/2;
-            if(reader.get(r) == 2147483647){
-                r--;
-            }else if(reader.get(mid) < target){
-                l = mid + 1;
-            }else if(reader.get(mid) > target){
-                r = mid - 1;
-            }else if(reader.get(mid) == target){
-                return mid;
-            }
-        }
-        return -1;
-    }
-    public static void main(String args[]){
-        Solution sol = new Solution();
-    }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-    ListNode(int val, ListNode next) { this.val = val; this.next = next;}
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
-class Node {
-    int val;
-    Node next;
-    Node random;
+/**
+ * // This is ArrayReader's API interface.
+ * // You should not implement it, or speculate about its implementation
+ * interface ArrayReader {
+ *     public int get(int index) {}
+ * }
+ */
 
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
+class Solution {
+    Integer res = -1;
+    public int search(ArrayReader reader, int target) {
+        int r = 1;
+        while(reader.get(r) < target){
+            r= r<<1;
+        }
+        helper(reader, 0, r, target);
+        return res;
+    }
+    public void helper(ArrayReader reader, int left, int right, int target){
+    
+        if(left > right){
+            return;
+        }
+        int mid = left + (right - left)/2;
+
+        if(reader.get(mid) == target){
+            res = mid;
+        }else if(reader.get(mid) < target){
+            helper(reader, mid+1, right, target);
+            
+        }
+        else if(reader.get(mid) > target){
+            helper(reader, left, mid-1, target);
+        }      
+        
     }
 }
