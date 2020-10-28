@@ -7,6 +7,7 @@ public class Solution{
 class ListNode {
     int val;
     ListNode next;
+    ListNode() {};
     ListNode(int x) { val = x; next = null; }
 }
 class TreeNode {
