@@ -7,7 +7,6 @@ class Solution {
         if(len == 1){
             return nums[0]/threshold + (nums[0]%threshold == 0 ? 0 : 1);
         }
-        Arrays.sort(nums);
         res = Integer.MAX_VALUE;
 
         helper(nums, 1, nums[len -1], threshold);
@@ -33,7 +32,7 @@ class Solution {
 
         int count = 0;
         for(int n : nums){
-            count += n/d + (n%d  == 0 ? 0:1);
+            count += (n + d - 1)/d;
         }
         return count;
     } 
