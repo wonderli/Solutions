@@ -4,10 +4,10 @@ public class Solution{
         List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
         boolean[] visited = new boolean[nums.length];
-        helper(0, nums, new ArrayList<>(), res, visited);
+        helper(nums, new ArrayList<>(), res, visited);
         return res;
     }
-    public void helper(int index, int[] nums, List<Integer> curr, List<List<Integer>> res, boolean[] visited){
+    public void helper(int[] nums, List<Integer> curr, List<List<Integer>> res, boolean[] visited){
         if(curr.size() == nums.length){
             res.add(new ArrayList<>(curr));
             return;
@@ -18,7 +18,7 @@ public class Solution{
             if(!visited[i]){
                 visited[i] = true;
                 curr.add(nums[i]);
-                helper(i + 1, nums, curr, res, visited);
+                helper( nums, curr, res, visited);
                 curr.remove(curr.size() - 1);
                 visited[i] = false;
                 last = i;
