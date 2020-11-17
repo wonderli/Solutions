@@ -1,41 +1,17 @@
 import java.util.*;
 public class Solution2{
-	public boolean isPerfectSquare(int num) {
-		if (num == 0 || num == 1)
-			return true;
-        long n = (long)num;
-		long guess = num;
-		while (guess * guess > n) {
-			guess = (guess + n / guess)/2;
-		}
-		return guess * guess == n ? true : false;
-	}
+    public int numSquares(int n){
+        if(n <=3) return n;
+        int[] dp = new int[n+1];
+        for(int i = 0; i <= n; i++){
+            dp[i] = i;
+            for(int j = 1; j*j <= i; j++){
+                dp[i]= Math.min(dp[i], dp[i - j*j]+1);
+            }
+        }
+        return dp[n];
+    }
     public static void main(String args[]){
         Solution2 sol = new Solution2();
-        System.out.println(sol.isPerfectSquare(9));
-        System.out.println(sol.isPerfectSquare(8));
-    }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-    ListNode(int val, ListNode next) {this.val = val; this.next = next;}
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
-class Node {
-    int val;
-    Node next;
-    Node random;
-
-    public Node(int val) {
-        this.val = val;
-        this.next = null;
-        this.random = null;
     }
 }
