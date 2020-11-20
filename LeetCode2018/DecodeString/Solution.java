@@ -1,61 +1,48 @@
 import java.util.*;
-
-public class Solution {
+class Solution {
     public String decodeString(String s) {
-        if (s == null || s.length() == 0) return s;
-        Stack<String> stack = new Stack<>();
-        Stack<String> number = new Stack<>();
-        number.push("#");
-        char[] cArray = s.toCharArray();
-        for (int i = 0; i < cArray.length; i++) {
-            char c = cArray[i];
-            if (Character.isDigit(c)) {
-                number.push(Character.toString(c));
-            } else if (c == '[') {
-                stack.push(Character.toString(c));
-                number.push("#");
-            } else if (c == ']') {
-                StringBuilder nsb = new StringBuilder();
-                number.pop();
-                while(!number.isEmpty() && !(number.peek().equals("#"))){
-                    nsb.append(number.pop());
-                }
-                int n = Integer.parseInt(nsb.reverse().toString());
-                StringBuilder sb = new StringBuilder();
-                while (!stack.isEmpty() && (!stack.peek().equals("["))) {
-                    sb.append(stack.pop());
-                }
-                stack.pop();
-                String s1 = build(n, sb.toString());
-                stack.push(s1);
-            } else {
-                stack.push(Character.toString(c));
-            }
-        }
-        StringBuilder ret = new StringBuilder();
-        while(!stack.isEmpty()){
-            ret.append(stack.pop());
-        }
-        return ret.reverse().toString();
-    }
-
-
-    private String build(int n, String s) {
+        if(s.length()==0) return "";
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(s);
+        int i = 0;
+        int j = 0;
+        while(i <s.length()){
+            char c = s.charAt(i);
+            if(c >= 'a' && c <= 'z'){
+                sb.append(c);
+                i++;
+            }else if(Character.isDigit(c)){
+                j = i+1;
+                int times = c - '0';
+                while(j < s.length() && Character.isDigit(s.charAt(j))){
+                    times = times * 10+ (s.charAt(j) - '0');
+                    j++;
+                }
+                if(s.charAt(j) == '['){
+                    int left = 1;
+                    j++;
+                    int start = j;
+                    while(j < s.length() && left != 0){
+                        if(s.charAt(j) == '['){
+                            left++;
+                        }else if(s.charAt(j) == ']'){
+                            left--;
+                        }
+                        j++;
+                    }
+                    String sub = decodeString(s.substring(start, j-1));
+                    for(int k=0; k<times;k++){
+                        sb.append(sub);
+                    }
+                }
+                i = j;
+            }
         }
         return sb.toString();
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Solution sol = new Solution();
-//        String s = "3[a]2[bc]";
-//        System.out.println(sol.decodeString(s));
-        System.out.println(sol.decodeString("3[a2[c]]"));
-//        System.out.println(sol.decodeString("2[abc]3[cd]ef"));
-//        System.out.println(sol.decodeString("abc3[cd]xyz"));
-//        System.out.println(sol.decodeString("100[leetcode]"));
+        String s = "abc3[[][][a]]xyz";
+        System.out.println(sol.decodeString(s));
     }
 }
-
