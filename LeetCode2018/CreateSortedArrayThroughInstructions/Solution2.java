@@ -1,28 +1,29 @@
 class Solution {
-    int[] tree;
-    int mod = (int)1e9 + 7;
     int m = (int)1e5 + 1;
-    public int createSortedArray(int[] instructions) {
-        tree = new int[m];
+    int mod = (int)1e9 + 7;
+    public int createSortedArray(int[] arr) {
+        int n = arr.length;
         int res = 0;
-        int n = instructions.length;
+        int[] bit = new int[m];
         for(int i = 0; i < n; i++){
-            res = (res + Math.min(get(instructions[i] -1), i - get(instructions[i])))%mod;
-            update(instructions[i]);
+            int low = query(bit, arr[i] - 1);
+            int high = i - query(bit, arr[i]);
+            res = (res + Math.min(low, high))%mod;
+            update(bit, arr[i]);
         }
         return res;
     }
-    private void update(int x){
+    private void update(int[] bit, int x){
         while(x < m){
-            tree[x]++;
-            x += x & -x;
+            bit[x]++;
+            x += (x & -x);
         }
     }
-    private int get(int x){
+    private int query(int[] bit, int x){
         int res = 0;
         while(x > 0){
-            res += tree[x];
-            x -= x & -x;
+            res += bit[x];
+            x -= (x & -x);
         }
         return res;
     }
