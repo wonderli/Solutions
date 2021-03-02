@@ -33,14 +33,4 @@ public class Solution2{
         System.out.println(sol.findKthLargest(nums, 2));
     }
 }
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
+

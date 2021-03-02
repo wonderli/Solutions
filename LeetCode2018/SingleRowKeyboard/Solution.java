@@ -1,5 +1,5 @@
 import java.util.*;
-class Solution {
+public class Solution {
     public int calculateTime(String keyboard, String word) {
         Map<Character, Integer> map = new HashMap<>();        
         for(int i = 0; i < keyboard.length(); i++){
