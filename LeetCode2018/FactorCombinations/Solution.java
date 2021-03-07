@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution{
+class Solution{
     public List<List<Integer>> getFactors(int n) {
         List<List<Integer>> res = new ArrayList<>();
         helper(2, n, new ArrayList<>(), res);
@@ -26,15 +26,4 @@ public class Solution{
         System.out.println(sol.getFactors(8));
         System.out.println(sol.getFactors(12));
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
 }
