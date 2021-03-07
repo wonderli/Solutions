@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution{
+class Solution{
     int[] count = new int[1];
 
     public int countUnivalSubtrees(TreeNode root) {
@@ -33,11 +33,6 @@ public class Solution{
         root.right.right = new TreeNode(5);
         System.out.println(sol.countUnivalSubtrees(root));
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
 }
 class TreeNode {
     int val;
