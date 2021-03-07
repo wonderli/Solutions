@@ -1,3 +1,9 @@
+import java.util.*;
+public class Solution{
+    public static void main(String args[]){
+        Solution sol = new Solution();
+    }
+}
 class MyCircularQueue {
 	int[] array;
 	int size;
@@ -79,3 +85,4 @@ class MyCircularQueue {
 //    	System.out.println(q.deQueue());
 	}
 }
+
