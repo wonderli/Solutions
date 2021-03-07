@@ -1,5 +1,10 @@
 import java.util.*;
-public class MyQueue {
+public class Solution{
+    public static void main(String args[]){
+        Solution sol = new Solution();
+    }
+}
+class MyQueue {
 
     private Stack<Integer> stack1;
     private Stack<Integer> stack2;
