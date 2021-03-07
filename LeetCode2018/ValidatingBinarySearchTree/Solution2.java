@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution2{
+class Solution{
     public boolean isValidBST(TreeNode root) {
         if(root == null) return true;
         TreeNode curr = root;
@@ -22,7 +22,7 @@ public class Solution2{
         return true;
     }
     public static void main(String args[]){
-        Solution2 sol = new Solution2();
+        Solution sol = new Solution();
         TreeNode root = new TreeNode(10);
         root.left = new TreeNode(5);
         root.right = new TreeNode(15);
@@ -30,11 +30,6 @@ public class Solution2{
         root.right.right = new TreeNode(20);
         System.out.println(sol.isValidBST(root));
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
 }
 class TreeNode {
     int val;
