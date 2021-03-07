@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution{
+class Solution{
 	public String addBinary(String a, String b) {
 		if(a == null && b == null) return "";
 		if(a.length() == 0) return b;
@@ -27,15 +27,4 @@ public class Solution{
 	String b = "1";
 	System.out.println(sol.addBinary(a, b));
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
 }
