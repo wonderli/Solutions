@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution2{
+class Solution2{
     public int[] countBits(int num) {
         int[] ans = new int[num + 1];
         int i = 0, b = 1;
@@ -15,17 +15,6 @@ public class Solution2{
     }
     
     public static void main(String args[]){
-        Solution2 sol = new Solution2();
+
     }
-}
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
 }
