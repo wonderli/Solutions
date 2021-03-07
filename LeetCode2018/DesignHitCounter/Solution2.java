@@ -1,7 +1,7 @@
 import java.util.*;
-public class Solution2{
+class Solution{
     public static void main(String args[]){
-        Solution2 sol = new Solution2();
+        Solution sol = new Solution();
     }
 }
 class HitCounter {
