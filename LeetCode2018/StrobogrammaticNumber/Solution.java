@@ -1,5 +1,5 @@
 import java.util.*;
-public class Solution{
+class Solution{
     public boolean isStrobogrammatic(String num) {
         int len = num.length();
         int i = 0;
@@ -25,14 +25,4 @@ public class Solution{
         System.out.println(sol.isStrobogrammatic("1881"));
     }
 }
-class ListNode {
-    int val;
-    ListNode next;
-    ListNode(int x) { val = x; next = null; }
-}
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode(int x) { val = x; }
-}
+
