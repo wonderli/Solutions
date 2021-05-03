@@ -4,6 +4,11 @@ class Solution{
 		Solution sol = new Solution();
 	}
 }
+class Tree {
+    int val;
+    Tree left;
+    Tree right;
+}
 class LLNode {
 
 	int val;
