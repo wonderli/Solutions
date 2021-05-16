@@ -14,6 +14,7 @@ class Solution {
                     seenD = true;
                     break;
                 case 'e':
+				case 'E':
                     if(seenE || !seenNum) return false;
                     seenE= true;
                     seenNum = false;
