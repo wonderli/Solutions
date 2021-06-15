@@ -4,9 +4,11 @@ class Solution {
         Arrays.sort(boxTypes, (a, b) -> (b[1] - a[1]));
         int result = 0;
         for(int i = 0; i < boxTypes.length; i++){
-            for(int j = 0; j < boxTypes[i][0] && truckSize != 0; j++){
-                result += boxTypes[i][1];
-                truckSize--;
+            int boxCount = Math.min(truckSize, boxTypes[i][0]);
+            truckSize -= boxCount;
+            result += boxCount * boxTypes[i][1];
+            if(truckSize == 0){
+                break;
             }
         }
         return result;
