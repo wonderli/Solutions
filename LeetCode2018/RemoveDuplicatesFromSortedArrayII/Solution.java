@@ -10,7 +10,7 @@ class Solution {
             }else{
                 count = 1;
             }
-            if(count < 2){
+            if(count <= 2){
                 nums[i] = nums[j];
                 i++;
             }
