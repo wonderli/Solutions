@@ -1,19 +1,36 @@
 import java.util.*;
-public class Solution {
+class Solution {
+    int m;
+    int n;
     public int[][] diagonalSort(int[][] mat) {
-        Map<Integer, PriorityQueue<Integer>> map = new HashMap<>();
-        int m = mat.length;
-        int n = mat[0].length;
+        m = mat.length;
+        n = mat[0].length;
         for(int i = 0; i < m; i++){
-            for(int j = 0;j < n; j++){
-                map.computeIfAbsent(i - j, (k -> new PriorityQueue<>())).add(mat[i][j]);
-            }
+            sort(mat, i, 0);
         }
-        for(int i = 0; i < m; i++){
-            for(int j = 0; j < n; j++){
-                mat[i][j]= map.get(i - j).poll();
-            }
+        
+        for(int j = 1; j < n; j++){
+            sort(mat, 0, j);
         }
         return mat;
+    }
+    
+    private void sort(int[][] mat, int i, int j){
+        List<Integer> list = new ArrayList<>();
+        int a= i;
+        int b = j;
+        while(i < m && j < n){
+            list.add(mat[i][j]);
+            i++;
+            j++;
+        }
+        Collections.sort(list);
+        int p = 0;
+        while(a < m && b < n){
+            mat[a][b] = list.get(p);
+            a++;
+            b++;
+            p++;
+        }
     }
 }
