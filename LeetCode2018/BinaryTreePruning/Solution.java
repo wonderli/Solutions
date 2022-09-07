@@ -1,54 +1,54 @@
 import java.util.*;
-public class Solution{
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {
     public TreeNode pruneTree(TreeNode root) {
         if(root == null) return null;
-        TreeNode curr = root;
-        helper(curr);
+        
+        TreeNode left = pruneTree(root.left);
+        TreeNode right = pruneTree(root.right);
+        root.left = left;
+        root.right = right;
+        if(root.left == null && root.right == null) return root.val == 0 ? null : root;
         return root;
     }
-    public void helper(TreeNode root){
-        if(root == null) return;
-        if(!containsOne(root.left)){
-            root.left = null;
-        }
-        if(!containsOne(root.right)){
-            root.right = null;
-        }
-        helper(root.left);
-        helper(root.right);
+    
 
-    }
-    public boolean containsOne(TreeNode root){
-        if(root == null) return false;
-        int val = root.val;
-        boolean left = containsOne(root.left);
-        boolean right = containsOne(root.right);
-        return left || right || val == 1;
-    }
-    public void print(TreeNode node){
-        if(node == null) return;
-        print(node.left);
-        System.out.print(node.val + ",");
-        print(node.right);
-    }
-    public static void main(String args[]){
-        Solution sol = new Solution();
-        TreeNode root = new TreeNode(1);
-        root.right = new TreeNode(0);
-        root.right.left = new TreeNode(0);
-        root.right.right = new TreeNode(1);
-        TreeNode res = sol.pruneTree(root);
-        sol.print(res);
-    }
 }
 class ListNode {
     int val;
     ListNode next;
+    ListNode() {};
     ListNode(int x) { val = x; next = null; }
 }
 class TreeNode {
     int val;
     TreeNode left;
     TreeNode right;
+    TreeNode() {};
     TreeNode(int x) { val = x; }
+}
+class Node {
+    int val;
+    Node next;
+    Node random;
+
+    public Node(int val) {
+        this.val = val;
+        this.next = null;
+        this.random = null;
+    }
 }
