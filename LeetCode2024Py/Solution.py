@@ -2,6 +2,61 @@ from typing import List
 
 
 class Solution:
+
+    def reverseWords(self, s: str) -> str:
+        i = 0
+        j = len(s) - 1
+        ss = list(s)
+        while i <= j and ss[i] == ' ':
+            i += 1
+        while i <= j and ss[j] == ' ':
+            j -= 1
+        ss = ss[i:j + 1]
+        self.reverse(ss, 0, len(ss) - 1)
+        i = 0
+        j = len(ss) - 1
+        result = []
+        while i <= j:
+            p = i
+            while p <= j and ss[p] != ' ':
+                p += 1
+            self.reverse(ss, i, p - 1)
+            for e in range(i, p):
+                result.append(ss[e])
+            while p <= j and ss[p] == ' ':
+                p += 1
+            if p <= j:
+                result.append(' ')
+            i = p
+        return ''.join(result)
+
+    def reverse(self, ss: list, i: int, j: int) -> list:
+        while i < j:
+            t = ss[i]
+            ss[i] = ss[j]
+            ss[j] = t
+            i += 1
+            j -= 1
+        return ss
+
+    def reverseVowels(self, s: str) -> str:
+        set = {'a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'}
+        ss = list(s)
+        i = 0
+        j = len(ss) - 1
+        while i < j:
+            while i < j and ss[i] not in set:
+                i += 1
+            while i < j and ss[j] not in set:
+                j -= 1
+            t = ss[i]
+            ss[i] = ss[j]
+            ss[j] = t
+            i += 1
+            j -= 1
+
+        return ''.join(ss)
+
     def canPlaceFlowers(self, flowerbed: List[int], n: int) -> bool:
         count = 0
         for i in range(len(flowerbed)):
