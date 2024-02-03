@@ -3,6 +3,40 @@ from typing import List
 
 class Solution:
 
+    def compress(self, chars: List[str]) -> int:
+        count = 1
+        l = 0
+        
+        for r in range(1, len(chars)+1):
+            if r < len(chars) and chars[r-1] == chars[r]:
+                count += 1
+            else:
+                chars[l] = chars[r - 1]
+                l += 1
+                if count > 1:
+                    for c in str(count):
+                        chars[l] = c
+                        l += 1
+                count = 1
+        return l
+    
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        n = len(nums)
+        if n < 3:
+            return False
+        first = float('inf')
+        second = float('inf')
+        for e in nums:
+            if e <= first:
+                first = e
+            elif e <= second:
+                second = e
+            else:
+                return True
+        return False
+
+
+
     def productExceptSelf(self, nums: List[int]) -> List[int]:
         prefix = 1
         postfix = 1
