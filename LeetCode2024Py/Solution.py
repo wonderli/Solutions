@@ -2,6 +2,22 @@ from typing import List
 
 
 class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        i = 0
+        j = n-1
+        area = 0
+        while i < j:
+            l = height[i]
+            r = height[j]
+            h = min(l, r)
+            w = j - i 
+            area = max(area, h * w)
+            if l < r:
+                i += 1
+            else:
+                j -= 1
+        return area
     def isSubsequence(self, s: str, t: str) -> bool:
         n = len(s)
         m = len(t)
