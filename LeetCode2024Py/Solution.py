@@ -2,6 +2,23 @@ from typing import List
 
 
 class Solution:
+    def maxOperations(self, nums: List[int], k: int) -> int:
+        nums.sort()
+        i = 0
+        n = len(nums)
+        j = n-1
+        count = 0
+        while i < j:
+            if nums[i] + nums[j] == k:
+                i += 1
+                j -= 1
+                count += 1
+            elif nums[i] + nums[j] > k:
+                j -= 1
+            else:
+                i += 1
+        return count
+
     def maxArea(self, height: List[int]) -> int:
         n = len(height)
         i = 0
