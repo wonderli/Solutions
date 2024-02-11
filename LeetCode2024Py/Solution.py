@@ -2,6 +2,22 @@ from typing import List
 
 
 class Solution:
+
+    def longestSubarray(self, nums: List[int]) -> int:
+        n = len(nums)
+        count = 0
+        i = 0
+        res = 0
+        
+        for j in range(n):
+            count += 1 if nums[j] == 0 else 0
+            
+            while count > 1:
+                count -= 1 if nums[i] == 0 else 0
+                i += 1
+            res = max(res, j - i)
+        return res
+
     def findMaxAverage(self, nums: List[int], k: int) -> float:
         sum = 0
         for i in range(k):
