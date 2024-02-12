@@ -2,7 +2,14 @@ from typing import List
 
 
 class Solution:
-
+    def largestAltitude(self, gain: List[int]) -> int:
+        n = len(gain)
+        res = 0
+        sum = [0 for _ in range(n+1)]
+        for i in range(1, n+1):
+            sum[i] += sum[i-1] + gain[i-1]
+            res = max(res, sum[i])
+        return res
     def longestSubarray(self, nums: List[int]) -> int:
         n = len(nums)
         count = 0
