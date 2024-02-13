@@ -2,6 +2,38 @@ from typing import List
 
 
 class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+
+        leftSum = [0 for _ in range(n)]
+        lSum = 0
+        rightSum = [0 for _ in range(n)]
+        RSum = 0
+        for i in range(1, n):
+            leftSum[i] = leftSum[i-1] + nums[i-1]
+        for i in range(n-2, -1, -1):
+            rightSum[i] = rightSum[i+1] + nums[i+1]
+            
+        for i in range(0, n):
+            if leftSum[i] == rightSum[i]:
+                return i
+        return -1
+    def firstPalindrome(self, words: List[str]) -> str:
+        for i in range(len(words)):
+            if self.isPalindrome(words[i]):
+                return words[i]
+        return ""
+    def isPalindrome(self, word: str) -> bool:
+        i = 0
+        j = len(word) - 1
+        while i < j:
+            if word[i] == word[j]:
+                i += 1
+                j -= 1
+            else:
+                return False
+        return True
+    
     def largestAltitude(self, gain: List[int]) -> int:
         n = len(gain)
         res = 0
