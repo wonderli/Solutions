@@ -2,6 +2,38 @@ from typing import List
 
 
 class Solution:
+    def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
+        map1 = set()
+        map2 = set()
+        res1 = []
+        res2 = []
+        for e in nums1:
+            map1.add(e)
+        for e in nums2:
+            map2.add(e)
+        for e in map1:
+            if e not in map2:
+                res1.append(e)
+        for e in map2:
+            if e not in map1:
+                res2.append(e)
+        res = [[], []]
+        res[0] = res1
+        res[1] = res2
+        return res
+        
+    def rearrangeArray(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        res = [0] * n
+        pos_index, neg_index = 0, 1
+        for i in range(n):
+            if nums[i] > 0:
+                res[pos_index] = nums[i]
+                pos_index += 2
+            else:
+                res[neg_index] = nums[i]
+                neg_index += 2
+        return res
     def pivotIndex(self, nums: List[int]) -> int:
         n = len(nums)
 
