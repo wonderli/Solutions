@@ -2,6 +2,28 @@ from typing import List
 
 
 class Solution:
+    def uniqueOccurrences(self, arr: List[int]) -> bool:
+        m = {}
+        for e in arr:
+            m[e] = m.get(e, 0) + 1        
+        
+        return len(set(m.values())) == len(set(m.keys()))
+    
+    def closeStrings(self, word1: str, word2: str) -> bool:
+        if len(word1) != len(word2):
+            return False
+        m1 = {}
+        m2 = {}
+        for e in word1:
+            m1[e]  = m1.get(e, 0) + 1
+        for e in word2:
+            m2[e] = m2.get(e, 0) + 1
+        if set(m1.keys()) != set(m2.keys()):
+            return False
+        
+        sm1 = sorted(m1.values())
+        sm2 = sorted(m2.values())
+        return sm1 == sm2
     def findDifference(self, nums1: List[int], nums2: List[int]) -> List[List[int]]:
         map1 = set()
         map2 = set()
