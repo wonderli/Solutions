@@ -2,6 +2,18 @@ from typing import List
 
 
 class Solution:
+    def removeStars(self, s: str) -> str:
+        stack = []
+        for e in s:
+            if e != '*':
+                stack.append(e)
+            else:
+                stack.pop()
+        return ''.join(stack)
+    def isPowerOfTwo(self, n: int) -> bool:
+        if n == 0:
+            return False
+        return (n & (-n)) == n
     def uniqueOccurrences(self, arr: List[int]) -> bool:
         m = {}
         for e in arr:
