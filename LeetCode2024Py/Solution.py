@@ -1,7 +1,49 @@
 from typing import List
 
-
 class Solution:
+    def treeDiameter(self, edges: List[List[int]]) -> int:
+        if len(edges) == 0:
+            return 0
+        graph = [set() for i in range(len(edges) + 1)]
+        for edge in edges:
+            u, v = edge
+            graph[u].add(v)
+            graph[v].add(u)
+            
+        def bfs(start):
+            visited = [False] * len(graph)
+            visited[start] = True
+            queue = deque([start])
+            distance = -1
+            last_node = None
+            while queue:
+                next_queue = deque()
+                while queue:
+                    next_node = queue.popleft()
+                    for neighbor in graph[next_node]:
+                        if not visited[neighbor]:
+                            visited[neighbor] = True
+                            next_queue.append(neighbor)
+                            last_node = neighbor
+                distance += 1
+                queue = next_queue
+
+            return last_node, distance
+        farthest_node, distance_1 = bfs(0)
+        another_farthest_node, distance_2 = bfs(farthest_node)
+        
+        return distance_2
+    def findJudge(self, n: int, trust: List[List[int]]) -> int:
+        arr = [0] * (n+1)
+        for e in trust:
+            a = e[0]
+            b = e[1]
+            arr[a] -= 1
+            arr[b] += 1
+        for i in range(1, n+1):
+            if arr[i] == n-1:
+                return i
+        return -1
     def decodeString(self, s: str) -> str:
         stack = []
         curr_str = ""
@@ -400,3 +442,15 @@ class Solution:
             else:
                 nums1[p] = nums2[p2]
                 p2 -= 1
+
+
+class RecentCounter:
+
+    def __init__(self):
+        self.slide_window = deque()
+
+    def ping(self, t: int) -> int:
+        self.slide_window.append(t)
+        while self.slide_window[0] < t - 3000:
+            self.slide_window.popleft()
+        return len(self.slide_window)
