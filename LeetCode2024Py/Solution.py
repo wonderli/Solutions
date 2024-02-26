@@ -1,6 +1,19 @@
 from typing import List
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
 
 class Solution:
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q:
+            return True
+        if not p or not q:
+            return False
+        if p.val != q.val:
+            return False
+        return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
     def predictPartyVictory(self, senate: str) -> str:
         n = len(senate)
         r_queue = deque()
@@ -472,3 +485,5 @@ class RecentCounter:
         while self.slide_window[0] < t - 3000:
             self.slide_window.popleft()
         return len(self.slide_window)
+    
+
