@@ -4,8 +4,86 @@ class TreeNode:
         self.val = val
         self.left = left
         self.right = right
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
 
 class Solution:
+
+    def goodNodes(self, root: TreeNode) -> int:
+        
+        def dfs(node, max_so_far):
+            if not node:
+                return
+            nonlocal res
+            if max_so_far <= node.val:
+                res += 1
+                
+            dfs(node.left, max(max_so_far, node.val))
+            dfs(node.right, max(max_so_far, node.val))
+            
+        res = 0
+        dfs(root, float("-inf"))
+        return res
+    
+    def maximumOddBinaryNumber(self, s: str) -> str:
+        nums = list(s)
+        count = 0
+        for e in nums:
+            if e == '1':
+                count += 1
+        result = deque()
+        length = len(nums)
+        while length > 1:
+            if count > 1:
+                result.append('1')
+                count -=1
+            else:
+                result.append('0')
+            length -= 1
+        result.append('1')
+        
+                
+        return ''.join(result)
+    
+    def gameResult(self, head: Optional[ListNode]) -> str:
+        odd = 0
+        even = 0
+        e = head
+        
+        
+        while e  != None:
+            o = e.next
+            if e.val > o.val:
+                even += 1
+            else:
+                odd += 1
+            e = o.next
+            
+        if even > odd:
+            return "Even"
+        elif even == odd:
+            return "Tie"
+        else:
+            return "Odd"
+  
+    def equalToDescendants(self, root: Optional[TreeNode]) -> int:
+        res = 0
+            
+        def count(root: Optional[TreeNode]) -> int:
+            
+            if not root:
+                return 0
+            nonlocal res
+            l = count(root.left)
+            r = count(root.right)
+            if root.val == l + r:
+                res += 1
+            return root.val + l + r
+        
+        count(root)
+        return res
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if not p and not q:
             return True
