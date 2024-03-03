@@ -11,6 +11,24 @@ class ListNode:
 
 class Solution:
 
+    def longestZigZag(self, root: Optional[TreeNode]) -> int:
+        
+        pathLength = 0
+        def dfs(node: Optional[TreeNode], goLeft: bool, steps: int):
+            if node == None:
+                return
+            nonlocal pathLength
+            pathLength = max(pathLength, steps)
+            if goLeft:
+                dfs(node.left, False, steps+1)
+                dfs(node.right, True, 1)
+            else:
+                dfs(node.left, False, 1)
+                dfs(node.right, True, steps+1)
+        dfs(root, False, 0)
+        dfs(root, True, 0)
+        return pathLength
+
     def goodNodes(self, root: TreeNode) -> int:
         
         def dfs(node, max_so_far):
