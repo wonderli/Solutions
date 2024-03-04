@@ -11,6 +11,21 @@ class ListNode:
 
 class Solution:
 
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root == None:
+            return None
+        if root == p or root == q:
+            return root
+        
+        l = self.lowestCommonAncestor(root.left, p, q)
+        r = self.lowestCommonAncestor(root.right, p, q)
+        if l == None:
+            return r
+        if r == None:
+            return l
+  
+        return root
+
     def bagOfTokensScore(self, tokens: List[int], power: int) -> int:
         score = 0
         tokens.sort()
