@@ -11,6 +11,35 @@ class ListNode:
 
 class Solution:
 
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if root == None:
+            return []
+        queue = deque()
+        queue.append(root)
+        res = []
+        while queue:
+            size = len(queue)
+            for i in range(size):
+                curr = queue.popleft()
+                if i == size - 1:
+                    res.append(curr.val)
+                if curr.left != None:
+                    queue.append(curr.left)
+                if curr.right != None:
+                    queue.append(curr.right)
+        return res
+
+    def minimumLength(self, s: str) -> int:
+        i = 0
+        j = len(s) -1
+        while i < j and s[i] == s[j]:
+            c = s[i]
+            while i <= j and s[i] == c:
+                i+= 1
+            while j > i and s[j] == c:
+                j-=1
+        return j - i + 1
+    
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if root == None:
             return None
