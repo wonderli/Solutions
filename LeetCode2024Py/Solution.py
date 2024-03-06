@@ -11,6 +11,42 @@ class ListNode:
 
 class Solution:
 
+    def maxLevelSum(self, root: Optional[TreeNode]) -> int:
+        if root == None:
+            return 0
+        level = 1
+        res = 1
+        maxSum = -inf
+        q = deque()
+        q.append(root)
+        while q:
+            size = len(q)
+            currSum = 0
+            
+            for i in range(size):
+                curr = q.popleft()
+                currSum += curr.val
+                if curr.left != None:
+                    q.append(curr.left)
+                if curr.right != None:
+                    q.append(curr.right)
+            if currSum > maxSum:
+                maxSum = currSum
+                res = level
+            level += 1
+            
+        return res
+
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        p1 = head
+        p2 = head
+        while p1 != None and p2 != None and p2.next != None:
+            p1 = p1.next
+            p2 = p2.next.next
+            if p1 == p2:
+                return True
+        return False
+    
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if root == None:
             return []
