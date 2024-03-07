@@ -10,7 +10,53 @@ class ListNode:
         self.next = next
 
 class Solution:
-
+    def successor(self, root: TreeNode) -> int:
+        root = root.right
+        while root.left:
+            root = root.left
+        return root.val
+    
+    def predecessor(self, root: TreeNode) -> int:
+        root = root.left
+        while root.right:
+            root = root.right
+        return root.val
+    
+    def deleteNode(self, root: Optional[TreeNode], key: int) -> Optional[TreeNode]:
+        if not root:
+            return None
+        if key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        elif key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        else:
+            if not (root.left or root.right):
+                root = None
+            elif root.right:
+                root.val = self.successor(root)
+                root.right = self.deleteNode(root.right, root.val)
+            else:
+                root.val = self.predecessor(root)
+                root.left = self.deleteNode(root.left, root.val)
+        return root
+    def searchBST(self, root: Optional[TreeNode], val: int) -> Optional[TreeNode]:
+        if root == None:
+            return None
+        if root.val == val:
+            return root
+        if root.val < val:
+            return self.searchBST(root.right, val)
+        else:
+            return self.searchBST(root.left, val)
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head == None:
+            return head
+        p = head
+        q = head
+        while q != None and q.next != None:
+            p = p.next
+            q = q.next.next
+        return p
     def maxLevelSum(self, root: Optional[TreeNode]) -> int:
         if root == None:
             return 0
