@@ -10,6 +10,55 @@ class ListNode:
         self.next = next
 
 class Solution:
+    def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
+        n = len(rooms)
+        visited = [False] * n
+        q = deque()
+        q.append(0)
+        visited[0] = True
+        while len(q) != 0:
+            curr = q.popleft()
+            for e in rooms[curr]:
+                if visited[e] != True:
+                    visited[e] = True
+                    q.append(e)
+                
+        for e in visited:
+            if not e:
+                return False
+        return True
+    def frequenciesOfElements(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return None
+        frequencies = {}
+        curr = head
+        freqHead = None
+        while curr != None:
+            if curr.val in frequencies:
+                fnode = frequencies[curr.val]
+                fnode.val += 1
+                frequencies[curr.val] = fnode
+            else:
+                newFNode = ListNode(1, freqHead)
+                frequencies[curr.val] = newFNode
+                freqHead = newFNode
+                
+            curr = curr.next
+        return freqHead
+    def maxFrequencyElements(self, nums: List[int]) -> int:
+        map = {}
+        maxFrequency = 0
+        totalFrequency = 0
+        for e in nums:
+            map[e] = map.get(e, 0) + 1
+            f = map[e]
+            if f > maxFrequency:
+                maxFrequency = f
+                totalFrequency = f
+            elif f == maxFrequency:
+                totalFrequency += f
+                
+        return totalFrequency
     def successor(self, root: TreeNode) -> int:
         root = root.right
         while root.left:
