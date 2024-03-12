@@ -10,6 +10,33 @@ class ListNode:
         self.next = next
 
 class Solution:
+    def removeZeroSumSublists(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        front = ListNode(0, head)
+        curr = front
+        prefixSum = 0
+        prefixSumToNode = {0: front}
+
+        while curr is not None:
+            prefixSum += curr.val
+            prefixSumToNode[prefixSum] = curr
+            curr = curr.next
+
+        prefixSum = 0
+        curr = front
+        while curr is not None:
+            prefixSum += curr.val
+            curr.next = prefixSumToNode[prefixSum].next
+            curr = curr.next
+        return front.next
+    def customSortString(self, order: str, s: str) -> str:
+        map = {}
+        for i in range(len(order)):
+            map[order[i]] = i
+        
+        cs = list(s)
+        ss = sorted(cs, key=lambda x: map.get(x, 27))
+        return ''.join(ss)
+
     def canVisitAllRooms(self, rooms: List[List[int]]) -> bool:
         n = len(rooms)
         visited = [False] * n
