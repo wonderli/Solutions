@@ -1,3 +1,4 @@
+from collections import defaultdict
 from typing import List
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -10,6 +11,28 @@ class ListNode:
         self.next = next
 
 class Solution:
+    def minReorder(self, n: int, connections: List[List[int]]) -> int:
+        graph = defaultdict(list)
+        edges = set()
+        for u, v in connections:
+            edges.add((u, v))
+            graph[u].append(v)
+            graph[v].append(u)
+        visited = {0}
+        res = 0
+
+        def dfs(city):
+            nonlocal graph, visited, res, edges
+            for nei in graph[city]:
+                if nei in visited:
+                    continue
+                if (nei, city) not in edges:
+                    res += 1
+                visited.add(nei)
+                dfs(nei)
+
+        dfs(0)
+        return res
     def pivotInteger(self, n: int) -> int:
         left = 1
         right = n
