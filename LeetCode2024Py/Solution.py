@@ -11,6 +11,57 @@ class ListNode:
         self.next = next
 
 class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        left = [1] * n
+        right = [1] * n
+        for i in range(1, n):
+            left[i] = nums[i - 1] * left[i - 1]
+
+        for j in range(n - 2, -1, -1):
+            right[j] = nums[j + 1] * right[j + 1]
+        res = [1] * n
+        for i in range(0, n):
+            res[i] = left[i] * right[i]
+        return res
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = defaultdict(dict)
+        n = len(values)
+        for i in range(n):
+            equation = equations[i]
+            a = equation[0]
+            b = equation[1]
+            v = values[i]
+            graph[a][b] = v
+            graph[b][a] = 1 / v
+
+        def dfs(start: int, end: int, res: int, seen: set):
+            if start in seen:
+                return -1.0
+            if start == end:
+                return res
+            seen.add(start)
+            for e in graph[start]:
+                if e not in seen:
+                    t = dfs(e, end, res * graph[start][e], seen)
+                    if t != -1.0:
+                        return t
+            return -1.0
+
+        m = len(queries)
+        res = [0] * m
+        for i in range(m):
+            query = queries[i]
+            c = query[0]
+            d = query[1]
+            if c not in graph or d not in graph:
+                res[i] = -1.0
+            else:
+                res[i] = dfs(c, d, 1, set())
+
+        return res
+
+
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
         graph = defaultdict(list)
         edges = set()
