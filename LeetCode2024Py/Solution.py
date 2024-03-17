@@ -19,6 +19,29 @@ class ListNode:
 
 
 class Solution:
+
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        intervals.append(newInterval)
+        intervals.sort(key=lambda x: (x[0], x[1]))
+        n = len(intervals)
+
+        start = intervals[0][0]
+        end = intervals[0][1]
+        result = []
+        for i in range(1, n):
+            curr = intervals[i]
+            curr_start, curr_end = curr[0], curr[1]
+            if curr_start > end:
+                result.append([start, end])
+                start = curr_start
+                end = curr_end
+            else:
+                start = min(start, curr_start)
+                end = max(curr_end, end)
+
+        result.append([start, end])
+        return result
+
     def nearestExit(self, maze: List[List[str]], entrance: List[int]) -> int:
         if not maze:
             return -1
@@ -1038,3 +1061,22 @@ class RecentCounter:
         while self.slide_window[0] < t - 3000:
             self.slide_window.popleft()
         return len(self.slide_window)
+
+
+class SmallestInfiniteSet:
+
+    def __init__(self):
+        self.minHeap = []
+        self.nextSmallest = 1
+
+    def popSmallest(self) -> int:
+        if self.minHeap and self.minHeap[0] < self.nextSmallest:
+            return heapq.heappop(self.minHeap)
+        else:
+            self.nextSmallest += 1
+            return self.nextSmallest - 1
+
+    def addBack(self, num: int) -> None:
+        if num < self.nextSmallest and num not in self.minHeap:
+            heapq.heappush(self.minHeap, num)
+
