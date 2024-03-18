@@ -20,6 +20,34 @@ class ListNode:
 
 class Solution:
 
+    def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
+        pairs = sorted(zip(nums1, nums2), key=lambda x: x[1], reverse=True)
+        top_k_sum = 0
+        min_heap = []
+        for i in range(k):
+            top_k_sum += pairs[i][0]
+            heapq.heappush(min_heap, pairs[i][0])
+
+        res = top_k_sum * pairs[k - 1][1]
+        for i in range(k, len(nums2)):
+            top_k_sum += pairs[i][0] - heapq.heappop(min_heap)
+            heapq.heappush(min_heap, pairs[i][0])
+            res = max(res, top_k_sum * pairs[i][1])
+        return res
+
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        if not points:
+            return 0
+        points.sort(key=lambda x: x[1])
+        currEnd = points[0][1]
+        count = 1
+        for point in points[1:]:
+            if point[0] > currEnd:
+                count += 1
+                currEnd = point[1]
+
+        return count
+
     def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
         intervals.append(newInterval)
         intervals.sort(key=lambda x: (x[0], x[1]))
