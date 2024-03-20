@@ -19,7 +19,31 @@ class ListNode:
 
 
 class Solution:
+    def rob(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1:
+            return nums[0]
+        if n == 2:
+            return max(nums[0], nums[1])
+        dp = [0] * n
+        dp[0] = nums[0]
+        dp[1] = max(nums[0], nums[1])
+        for i in range(2, n):
+            dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
 
+        return dp[n - 1]
+    def tribonacci(self, n: int) -> int:
+        dp = [0] * (n+1)
+        if n == 0:
+            return 0
+        if n == 1 or n == 2:
+            return 1
+        dp[0] = 0
+        dp[1] = 1
+        dp[2] = 1
+        for i in range(3, n+1):
+            dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+        return dp[n]
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         def helper(start: int, curr: List[int], remain: int, res: List[List[int]]):
             if len(curr) == k and remain == 0:
