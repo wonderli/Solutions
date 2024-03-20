@@ -20,6 +20,99 @@ class ListNode:
 
 class Solution:
 
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        def helper(start: int, curr: List[int], remain: int, res: List[List[int]]):
+            if len(curr) == k and remain == 0:
+                res.append(list(curr))
+                return
+
+            for i in range(start, 10):
+                if remain - i >= 0:
+                    curr.append(i)
+                    helper(i + 1, curr, remain - i, res)
+                    curr.pop()
+
+        result = []
+        helper(1, [], n, result)
+        return result
+    def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
+        pre = list1
+        for i in range(a - 1):
+            pre = pre.next
+
+        after = pre
+        for j in range(b - a + 2):
+            after = after.next
+        tail = list2
+
+        while tail.next:
+            tail = tail.next
+        pre.next = list2
+        tail.next = after
+        return list1
+
+    def leastInterval(self, tasks: List[str], n: int) -> int:
+        tasks_count = collections.Counter(tasks)
+
+        max_tasks = max(tasks_count.values())
+        max_count = list(tasks_count.values()).count(max_tasks)
+        res = max(len(tasks), (max_tasks - 1) * (n + 1) + max_count)
+        return res
+    def findPeakElement(self, nums: List[int]) -> int:
+        l, r = 0, len(nums) - 1
+        while l < r:
+            mid = (l + r)//2
+            if nums[mid] > nums[mid+1]:
+                r = mid
+            else:
+                l = mid+1
+        return l
+    def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
+        n, m = len(spells), len(potions)
+        potions.sort()
+        res = []
+
+        def bin_search(target) -> int:
+            l, r = 0, m
+            while l < r:
+                mid = (l + r) // 2
+
+                if spells[i] * potions[mid] < target:
+                    l = mid + 1
+                else:
+                    r = mid
+            return l
+
+        for i in range(n):
+            count = m - bin_search(success)
+            res.append(count)
+        return res
+
+    def totalCost(self, costs: List[int], k: int, candidates: int) -> int:
+        head_workers = []
+        tail_workers = []
+        for i in range(candidates):
+            heapq.heappush(head_workers, costs[i])
+        for i in range(max(candidates, len(costs) - candidates), len(costs)):
+            heapq.heappush(tail_workers, costs[i])
+        res = 0
+        next_head = candidates
+        next_tail = len(costs) - 1 - candidates
+
+        for i in range(k):
+            if not tail_workers or head_workers and (head_workers[0] <= tail_workers[0]):
+                res += heapq.heappop(head_workers)
+
+                if next_head <= next_tail:
+                    heapq.heappush(head_workers, costs[next_head])
+                    next_head += 1
+            else:
+                res += heapq.heappop(tail_workers)
+                if next_head <= next_tail:
+                    heapq.heappush(tail_workers, costs[next_tail])
+                    next_tail -= 1
+        return res
+
     def maxScore(self, nums1: List[int], nums2: List[int], k: int) -> int:
         pairs = sorted(zip(nums1, nums2), key=lambda x: x[1], reverse=True)
         top_k_sum = 0
@@ -83,7 +176,7 @@ class Solution:
         while q:
             curr = q.popleft()
             if (curr[0] == 0 or curr[0] == n - 1 or curr[1] == 0 or curr[1] == m - 1) and (
-                    (curr[0], curr[1]) !=  (entrance[0], entrance[1])) :
+                    (curr[0], curr[1]) != (entrance[0], entrance[1])):
                 return curr[2]
             for dir in directions:
                 x, y = curr[0] + dir[0], curr[1] + dir[1]
@@ -1107,4 +1200,3 @@ class SmallestInfiniteSet:
     def addBack(self, num: int) -> None:
         if num < self.nextSmallest and num not in self.minHeap:
             heapq.heappush(self.minHeap, num)
-
