@@ -19,7 +19,48 @@ class ListNode:
 
 
 class Solution:
+    def maxProfit(self, prices: List[int], fee: int) -> int:
+        n = len(prices)
+        cash, hold = 0, -prices[0] - fee
+        for i in range(n):
+            cash = max(cash, hold + prices[i])
+            hold = max(hold, cash - prices[i] - fee)
+        return cash
+    def removeVowels(self, s: str) -> str:
+        vowels = set(['a', 'e', 'i', 'o', 'u'])
+        n = len(s)
+        l = list(s)
+        i = 0
+        j = 0
+        while j < n:
+            if l[j] in vowels:
+                j += 1
+            else:
+                t = l[i]
+                l[i] = l[j]
+                l[j] = t
+                i += 1
+                j += 1
+        return ''.join(l[:i])
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        stack = []
+        p1 = head
+        p2 = head
+        while p2 and p2.next:
+            stack.append(p1.val)
+            p1 = p1.next
+            p2 = p2.next.next
 
+        if p2:
+            p1 = p1.next
+
+        i = 0
+        while p1:
+            top = stack.pop()
+            if top != p1.val:
+                return False
+            p1 = p1.next
+        return True
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         m = len(text1)
         n = len(text2)
