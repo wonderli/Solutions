@@ -19,7 +19,20 @@ class ListNode:
 
 
 class Solution:
-
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda x: (x[1]))
+        end = intervals[0][1]
+        count = 0
+        for interval in intervals[1:]:
+            s = interval[0]
+            e = interval[1]
+            if s < end:
+                count += 1
+            else:
+                end = e
+        return count
     def minFlips(self, a: int, b: int, c: int) -> int:
         flips = 0
         while a > 0 or b > 0 or c > 0:
@@ -1318,3 +1331,38 @@ class SmallestInfiniteSet:
     def addBack(self, num: int) -> None:
         if num < self.nextSmallest and num not in self.minHeap:
             heapq.heappush(self.minHeap, num)
+
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isEndOfWord = False
+
+
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
+
+    def insert(self, word: str) -> None:
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                node.children[c] = TrieNode()
+            node = node.children[c]
+        node.isEndOfWord = True
+
+    def search(self, word: str) -> bool:
+        node = self.find(word)
+        return node is not None and node.isEndOfWord
+
+    def find(self, word: str) -> TrieNode:
+        node = self.root
+        for c in word:
+            if c not in node.children:
+                return None
+            node = node.children[c]
+        return node
+
+    def startsWith(self, prefix: str) -> bool:
+        node = self.find(prefix)
+        return node is not None
