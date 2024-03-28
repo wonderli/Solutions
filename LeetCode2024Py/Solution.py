@@ -19,6 +19,18 @@ class ListNode:
 
 
 class Solution:
+    def maxSubarrayLength(self, nums: List[int], k: int) -> int:
+        n = len(nums)
+        start = 0
+        freq = Counter()
+        max_len = 0
+        for end in range(n):
+            freq[nums[end]] += 1
+            while freq[nums[end]] > k:
+                freq[nums[start]] -= 1
+                start += 1
+            max_len = max(max_len, end - start + 1)
+        return max_len
     def maxProfit(self, prices: List[int]) -> int:
         min_price = inf
         max_profit = 0
