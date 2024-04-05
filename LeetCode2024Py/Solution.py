@@ -19,6 +19,14 @@ class ListNode:
 
 
 class Solution:
+    def makeGood(self, s: str) -> str:
+        stack = []
+        for e in s:
+            if stack and e.swapcase() == stack[-1]:
+                stack.pop()
+            else:
+                stack.append(e)
+        return ''.join(stack)
     def maxDepth(self, s: str) -> int:
         curr = 0
         max_depth = 0
