@@ -19,6 +19,16 @@ class ListNode:
 
 
 class Solution:
+    def maxDepth(self, s: str) -> int:
+        curr = 0
+        max_depth = 0
+        for c in s:
+            if c == '(':
+                curr += 1
+                max_depth = max(max_depth, curr)
+            elif c == ')':
+                curr -= 1
+        return max_depth
     def maxSubarrayLength(self, nums: List[int], k: int) -> int:
         n = len(nums)
         start = 0
