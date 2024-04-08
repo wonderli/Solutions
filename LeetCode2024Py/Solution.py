@@ -20,6 +20,35 @@ class ListNode:
 
 class Solution:
 
+    def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
+        d1 = deque(students)
+        d2 = deque(sandwiches)
+        failed_attempts = 0
+        while d1 and d2 and failed_attempts < len(d1):
+            if d1[0] == d2[0]:
+                d1.popleft()
+                d2.popleft()
+                failed_attempts = 0
+            else:
+                d1.append(d1.popleft())
+                failed_attempts += 1
+        return len(d1)
+
+    def fullJustify(self, words: List[str], maxWidth: int) -> List[str]:
+        res = []
+        curr = []
+        num_of_letters = 0
+        for w in words:
+            if num_of_letters + len(w) + len(curr) > maxWidth:
+                for i in range(maxWidth - num_of_letters):
+                    curr[i % (len(curr) - 1 or 1)] += ' '
+                res.append(''.join(curr))
+                curr = []
+                num_of_letters = 0
+            curr += [w]
+            num_of_letters += len(w)
+        return res + [' '.join(curr).ljust(maxWidth)]
+
     def convert(self, s: str, numRows: int) -> str:
         if numRows == 1 or numRows >= len(s):
             return s
