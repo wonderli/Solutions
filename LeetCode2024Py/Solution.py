@@ -19,7 +19,16 @@ class ListNode:
 
 
 class Solution:
-
+    def verifyPreorder(self, preorder: List[int]) -> bool:
+        stack = []
+        lower = -inf
+        for e in preorder:
+            while stack and e > stack[-1]:
+                lower = stack.pop()
+            if e < lower:
+                return False
+            stack.append(e)
+        return True
     def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
         d1 = deque(students)
         d2 = deque(sandwiches)
