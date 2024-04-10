@@ -19,6 +19,19 @@ class ListNode:
 
 
 class Solution:
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        l = 0
+        n = len(nums)
+        min_len = n + 1
+        curr = 0
+        for r in range(n):
+            curr += nums[r]
+            while curr >= target:
+                min_len = min(min_len, r - l + 1)
+                curr -= nums[l]
+                l += 1
+
+        return min_len if min_len != n + 1 else 0
     def verifyPreorder(self, preorder: List[int]) -> bool:
         stack = []
         lower = -inf
