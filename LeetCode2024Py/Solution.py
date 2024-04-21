@@ -19,6 +19,25 @@ class ListNode:
 
 
 class Solution:
+    def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
+        if source == destination:
+            return True
+        graph = {i: [] for i in range(n)}
+        for u, v in edges:
+            graph[u].append(v)
+            graph[v].append(u)
+
+        visited = set()
+        queue = deque([source])
+        while queue:
+            curr = queue.popleft()
+            if curr == destination:
+                return True
+            for neighbor in graph[curr]:
+                if neighbor not in visited:
+                    queue.append(neighbor)
+                    visited.add(neighbor)
+        return False
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         l = 0
         n = len(nums)
