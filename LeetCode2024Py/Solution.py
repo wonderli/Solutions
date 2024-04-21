@@ -19,6 +19,25 @@ class ListNode:
 
 
 class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        operators = ['+','-', '*', '/']
+        for token in tokens:
+            if token not in operators:
+                stack.append(int(token))
+            elif token in operators:
+                b = stack.pop()
+                a = stack.pop()
+                if token == '+':
+                    stack.append(a + b)
+                elif token == '-':
+                    stack.append(a-b)
+                elif token == '*':
+                    stack.append(a*b)
+                elif token == '/':
+                    x = a/b
+                    stack.append(int(a/b) if x > 0 else -int(-x))
+        return stack[-1]
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         if source == destination:
             return True
