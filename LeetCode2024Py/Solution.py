@@ -19,6 +19,19 @@ class ListNode:
 
 
 class Solution:
+    def longestIdealString(self, s: str, k: int) -> int:
+        n = len(s)
+        dp = [0 for _ in range(26)]
+        res = 0
+        for i in range(n):
+            curr = ord(s[i]) - ord('a')
+            best = 0
+            for prev in range(26):
+                if abs(prev - curr) <= k:
+                    best = max(best, dp[prev])
+            dp[curr] = max(dp[curr], best + 1)
+            res = max(res, dp[curr])
+        return res
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
         if not head or left == right:
             return head
