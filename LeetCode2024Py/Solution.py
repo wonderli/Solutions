@@ -19,6 +19,40 @@ class ListNode:
 
 
 class Solution:
+    def minFallingPathSum(self, grid: List[List[int]]) -> int:
+        n = len(grid)
+        if n == 1:
+            return grid[0][0]
+        prev_min = float('inf')
+        prev_second_min = float('inf')
+        prev_index = -1
+        for i in range(n):
+            if grid[0][i] < prev_min or prev_index == -1:
+                prev_second_min = prev_min
+                prev_min = grid[0][i]
+                prev_index = i
+            elif grid[0][i] < prev_second_min:
+                prev_second_min = grid[0][i]
+        for i in range(1, n):
+            curr_min = float('inf')
+            curr_second_min = float('inf')
+            curr_min_index = -1
+            res = 0
+            for j in range(n):
+                if j == prev_index:
+                    res = prev_second_min + grid[i][j]
+                else:
+                    res = prev_min + grid[i][j]
+                if res < curr_min:
+                    curr_second_min = curr_min
+                    curr_min = res
+                    curr_min_index = j
+                elif res < curr_second_min:
+                    curr_second_min = res
+            prev_min = curr_min
+            prev_second_min = curr_second_min
+            prev_index = curr_min_index
+        return prev_min
     def longestIdealString(self, s: str, k: int) -> int:
         n = len(s)
         dp = [0 for _ in range(26)]
