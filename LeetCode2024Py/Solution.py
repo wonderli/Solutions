@@ -19,6 +19,26 @@ class ListNode:
 
 
 class Solution:
+
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        if not head:
+            return head
+        dummy_small = ListNode()
+        small = dummy_small
+        dummy_large = ListNode()
+        large = dummy_large
+        while head:
+            if head.val < x:
+                small.next = head
+                small = small.next
+            else:
+                large.next = head
+                large = large.next
+            head = head.next
+
+        large.next = None
+        small.next = dummy_large.next
+        return dummy_small.next
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
         if not head:
