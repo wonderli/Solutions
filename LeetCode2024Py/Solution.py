@@ -19,6 +19,39 @@ class ListNode:
 
 
 class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+
+        if not head:
+            return head
+        dummy = ListNode(next=head)
+
+        def getLen(head: Optional[ListNode]) -> int:
+            count = 0
+            while head:
+                count += 1
+                head = head.next
+            return count
+
+        length = getLen(head)
+        k = k % length
+        if k == 0:
+            return head
+
+        slow = dummy
+        fast = dummy
+        while fast.next and k > 0:
+            fast = fast.next
+            k -= 1
+        while fast.next:
+            slow = slow.next
+            fast = fast.next
+
+        new_head = slow.next
+        fast.next = head
+        dummy.next = new_head
+        slow.next = None
+
+        return dummy.next
 
     def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
         tree = defaultdict(list)
