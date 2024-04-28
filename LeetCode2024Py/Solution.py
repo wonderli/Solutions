@@ -19,6 +19,35 @@ class ListNode:
 
 
 class Solution:
+
+    def sumOfDistancesInTree(self, n: int, edges: List[List[int]]) -> List[int]:
+        tree = defaultdict(list)
+        for u, v in edges:
+            tree[u].append(v)
+            tree[v].append(u)
+
+        res = [0] * n
+        count = [1] * n
+
+        def dfs(root: int, parent: int):
+            for neighbor in tree[root]:
+                if neighbor == parent:
+                    continue
+                dfs(neighbor, root)
+                count[root] += count[neighbor]
+                res[root] += res[neighbor] + count[neighbor]
+
+        def dfs2(root: int, parent: int):
+            for neighbor in tree[root]:
+                if neighbor == parent:
+                    continue
+                parent_res = res[root] - (res[neighbor] + count[neighbor])
+                res[neighbor] = res[neighbor] + parent_res + (n - count[neighbor])
+                dfs2(neighbor, root)
+
+        dfs(0, -1)
+        dfs2(0, -1)
+        return res
     def minFallingPathSum(self, grid: List[List[int]]) -> int:
         n = len(grid)
         if n == 1:
