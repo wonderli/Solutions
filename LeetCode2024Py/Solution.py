@@ -19,6 +19,13 @@ class ListNode:
 
 
 class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        x = 0
+        for e in nums:
+            x ^= e
+
+        y = x ^ k
+        return bin(y).count('1')
 
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         if not head:
