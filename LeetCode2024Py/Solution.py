@@ -1715,3 +1715,65 @@ class Trie:
     def startsWith(self, prefix: str) -> bool:
         node = self.find(prefix)
         return node is not None
+
+
+class DoubleListNode:
+    def __init__(self, val=0, key=0, prev=None, next=None):
+        self.val = val
+        self.prev = prev
+        self.next = next
+        self.key = key
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache_map = {}
+        self.head = DoubleListNode()
+        self.tail = DoubleListNode()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def move_to_tail(self, node: DoubleListNode):
+        self.remove(node)
+        self.add_to_tail(node)
+
+    def add_to_tail(self, node: DoubleListNode):
+        node.prev = self.tail.prev
+        node.next = self.tail
+        self.tail.prev.next = node
+        self.tail.prev = node
+
+    def remove(self, node: DoubleListNode):
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def remove_head(self):
+        if self.head.next != self.tail:
+            node = self.head.next
+            self.remove(node)
+            del self.cache_map[node.key]
+
+    def get(self, key: int) -> int:
+        if key in self.cache_map:
+            node = self.cache_map[key]
+            self.move_to_tail(node)
+            return node.val
+        else:
+            return -1
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache_map:
+            node = self.cache_map[key]
+            node.val = value
+            self.move_to_tail(node)
+        else:
+            if len(self.cache_map) >= self.capacity:
+                self.remove_head()
+            node = DoubleListNode(key=key, val=value)
+            self.cache_map[key] = node
+            self.add_to_tail(node)
+
+# Your LRUCache object will be instantiated and called as such:
+# obj = LRUCache(capacity)
+# param_1 = obj.get(key)
+# obj.put(key,value)
