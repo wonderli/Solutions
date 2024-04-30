@@ -19,6 +19,16 @@ class ListNode:
 
 
 class Solution:
+    def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        if not root:
+            return root
+        if not root.left and not root.right:
+            return root
+        left = root.left
+        right = root.right
+        root.left = self.invertTree(right)
+        root.right = self.invertTree(left)
+        return root
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if not p and not q:
             return True
