@@ -19,6 +19,19 @@ class ListNode:
 
 
 class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+
+        def helper(left: Optional[TreeNode], right: Optional[TreeNode]) -> bool:
+            if not left and not right:
+                return True
+            if (left and not right) or (not left and right):
+                return False
+            if left.val == right.val:
+                return helper(left.left, right.right) and helper(left.right, right.left)
+
+        return helper(root.left, root.right)
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return root
