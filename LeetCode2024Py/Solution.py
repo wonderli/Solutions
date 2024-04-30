@@ -19,6 +19,21 @@ class ListNode:
 
 
 class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        max_depth = 0
+        def helper(root: Optional[TreeNode], curr_depth: int):
+            nonlocal max_depth
+            if not root:
+                return
+            if not root.left and not root.right:
+                max_depth = max(max_depth, curr_depth)
+                return
+            helper(root.left, curr_depth + 1)
+            helper(root.right, curr_depth + 1)
+        helper(root, 1)
+        return max_depth
     def minOperations(self, nums: List[int], k: int) -> int:
         x = 0
         for e in nums:
