@@ -19,6 +19,17 @@ class ListNode:
 
 
 class Solution:
+
+    def reversePrefix(self, word: str, ch: str) -> str:
+        for i in range(len(word)):
+            if word[i] == ch:
+                res = ''
+                for j in range(i, -1, -1):
+                    res += word[j]
+                res += word[i + 1:]
+                return res
+        return word
+
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         if not root:
             return True
@@ -32,6 +43,7 @@ class Solution:
                 return helper(left.left, right.right) and helper(left.right, right.left)
 
         return helper(root.left, root.right)
+
     def invertTree(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
         if not root:
             return root
@@ -42,6 +54,7 @@ class Solution:
         root.left = self.invertTree(right)
         root.right = self.invertTree(left)
         return root
+
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
         if not p and not q:
             return True
@@ -51,10 +64,12 @@ class Solution:
             return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         else:
             return False
+
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
         max_depth = 0
+
         def helper(root: Optional[TreeNode], curr_depth: int):
             nonlocal max_depth
             if not root:
@@ -64,8 +79,10 @@ class Solution:
                 return
             helper(root.left, curr_depth + 1)
             helper(root.right, curr_depth + 1)
+
         helper(root, 1)
         return max_depth
+
     def minOperations(self, nums: List[int], k: int) -> int:
         x = 0
         for e in nums:
@@ -93,6 +110,7 @@ class Solution:
         large.next = None
         small.next = dummy_large.next
         return dummy_small.next
+
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
 
         if not head:
@@ -155,6 +173,7 @@ class Solution:
         dfs(0, -1)
         dfs2(0, -1)
         return res
+
     def minFallingPathSum(self, grid: List[List[int]]) -> int:
         n = len(grid)
         if n == 1:
@@ -189,6 +208,7 @@ class Solution:
             prev_second_min = curr_second_min
             prev_index = curr_min_index
         return prev_min
+
     def longestIdealString(self, s: str, k: int) -> int:
         n = len(s)
         dp = [0 for _ in range(26)]
@@ -202,6 +222,7 @@ class Solution:
             dp[curr] = max(dp[curr], best + 1)
             res = max(res, dp[curr])
         return res
+
     def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
         if not head or left == right:
             return head
@@ -221,6 +242,7 @@ class Solution:
         prev.next.next = curr
         prev.next = reverse
         return dummy.next
+
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
         if not head:
             return None
@@ -240,6 +262,7 @@ class Solution:
                 node_map[current].random = node_map[current.random]
             current = current.next
         return node_map[head]
+
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         dummy = ListNode(0)
         current = dummy
@@ -253,9 +276,10 @@ class Solution:
             current = current.next
         current.next = list1 if list1 else list2
         return dummy.next
+
     def evalRPN(self, tokens: List[str]) -> int:
         stack = []
-        operators = ['+','-', '*', '/']
+        operators = ['+', '-', '*', '/']
         for token in tokens:
             if token not in operators:
                 stack.append(int(token))
@@ -265,13 +289,14 @@ class Solution:
                 if token == '+':
                     stack.append(a + b)
                 elif token == '-':
-                    stack.append(a-b)
+                    stack.append(a - b)
                 elif token == '*':
-                    stack.append(a*b)
+                    stack.append(a * b)
                 elif token == '/':
-                    x = a/b
-                    stack.append(int(a/b) if x > 0 else -int(-x))
+                    x = a / b
+                    stack.append(int(a / b) if x > 0 else -int(-x))
         return stack[-1]
+
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         if source == destination:
             return True
@@ -291,6 +316,7 @@ class Solution:
                     queue.append(neighbor)
                     visited.add(neighbor)
         return False
+
     def minSubArrayLen(self, target: int, nums: List[int]) -> int:
         l = 0
         n = len(nums)
@@ -304,6 +330,7 @@ class Solution:
                 l += 1
 
         return min_len if min_len != n + 1 else 0
+
     def verifyPreorder(self, preorder: List[int]) -> bool:
         stack = []
         lower = -inf
@@ -314,6 +341,7 @@ class Solution:
                 return False
             stack.append(e)
         return True
+
     def countStudents(self, students: List[int], sandwiches: List[int]) -> int:
         d1 = deque(students)
         d2 = deque(sandwiches)
@@ -359,6 +387,7 @@ class Solution:
             index += step
 
         return ''.join(rows)
+
     def makeGood(self, s: str) -> str:
         stack = []
         for e in s:
@@ -367,6 +396,7 @@ class Solution:
             else:
                 stack.append(e)
         return ''.join(stack)
+
     def maxDepth(self, s: str) -> int:
         curr = 0
         max_depth = 0
@@ -377,6 +407,7 @@ class Solution:
             elif c == ')':
                 curr -= 1
         return max_depth
+
     def maxSubarrayLength(self, nums: List[int], k: int) -> int:
         n = len(nums)
         start = 0
@@ -389,6 +420,7 @@ class Solution:
                 start += 1
             max_len = max(max_len, end - start + 1)
         return max_len
+
     def maxProfit(self, prices: List[int]) -> int:
         min_price = inf
         max_profit = 0
@@ -396,20 +428,24 @@ class Solution:
             min_price = min(min_price, price)
             max_profit = max(max_profit, price - min_price)
         return max_profit
+
     def rotate(self, nums: List[int], k: int) -> None:
         """
         Do not return anything, modify nums in-place instead.
         """
         n = len(nums)
-        k = k%n
+        k = k % n
+
         def reverse(nums: List[int], x: int, y: int):
             while x < y:
                 nums[x], nums[y] = nums[y], nums[x]
-                x +=1
+                x += 1
                 y -= 1
-        reverse(nums, 0, n-1)
-        reverse(nums, k, n-1)
-        reverse(nums, 0, k-1)
+
+        reverse(nums, 0, n - 1)
+        reverse(nums, k, n - 1)
+        reverse(nums, 0, k - 1)
+
     def majorityElement(self, nums: List[int]) -> int:
         major = nums[0]
         count = 1
@@ -422,6 +458,7 @@ class Solution:
             else:
                 count -= 1
         return major
+
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
         if not intervals:
             return 0
@@ -436,6 +473,7 @@ class Solution:
             else:
                 end = e
         return count
+
     def minFlips(self, a: int, b: int, c: int) -> int:
         flips = 0
         while a > 0 or b > 0 or c > 0:
@@ -453,8 +491,9 @@ class Solution:
             b >>= 1
             c >>= 1
         return flips
+
     def minDistance(self, word1: str, word2: str) -> int:
-        m= len(word1)
+        m = len(word1)
         n = len(word2)
         dp = [[0] * (n + 1) for _ in range(m + 1)]
         for i in range(1, m + 1):
@@ -462,8 +501,9 @@ class Solution:
                 if word1[i - 1] == word2[j - 1]:
                     dp[i][j] = dp[i - 1][j - 1]
                 else:
-                    dp[i][j] = min(min(dp[i - 1][j - 1]+1, dp[i][j - 1]+1), dp[i - 1][j]+1)
+                    dp[i][j] = min(min(dp[i - 1][j - 1] + 1, dp[i][j - 1] + 1), dp[i - 1][j] + 1)
         return dp[m][n]
+
     def maxProfit(self, prices: List[int], fee: int) -> int:
         n = len(prices)
         cash, hold = 0, -prices[0] - fee
@@ -471,6 +511,7 @@ class Solution:
             cash = max(cash, hold + prices[i])
             hold = max(hold, cash - prices[i] - fee)
         return cash
+
     def removeVowels(self, s: str) -> str:
         vowels = set(['a', 'e', 'i', 'o', 'u'])
         n = len(s)
@@ -487,6 +528,7 @@ class Solution:
                 i += 1
                 j += 1
         return ''.join(l[:i])
+
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         stack = []
         p1 = head
@@ -506,6 +548,7 @@ class Solution:
                 return False
             p1 = p1.next
         return True
+
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         m = len(text1)
         n = len(text2)
@@ -518,6 +561,7 @@ class Solution:
                 else:
                     dp[i][j] = max(dp[i][j - 1], dp[i - 1][j])
         return dp[m][n]
+
     def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
             return None
@@ -529,6 +573,7 @@ class Solution:
             curr = next
             next = p
         return curr
+
     def rob(self, nums: List[int]) -> int:
         n = len(nums)
         if n == 1:
@@ -542,8 +587,9 @@ class Solution:
             dp[i] = max(dp[i - 2] + nums[i], dp[i - 1])
 
         return dp[n - 1]
+
     def tribonacci(self, n: int) -> int:
-        dp = [0] * (n+1)
+        dp = [0] * (n + 1)
         if n == 0:
             return 0
         if n == 1 or n == 2:
@@ -551,9 +597,10 @@ class Solution:
         dp[0] = 0
         dp[1] = 1
         dp[2] = 1
-        for i in range(3, n+1):
-            dp[i] = dp[i-1] + dp[i-2] + dp[i-3]
+        for i in range(3, n + 1):
+            dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3]
         return dp[n]
+
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         def helper(start: int, curr: List[int], remain: int, res: List[List[int]]):
             if len(curr) == k and remain == 0:
@@ -569,6 +616,7 @@ class Solution:
         result = []
         helper(1, [], n, result)
         return result
+
     def mergeInBetween(self, list1: ListNode, a: int, b: int, list2: ListNode) -> ListNode:
         pre = list1
         for i in range(a - 1):
@@ -592,15 +640,17 @@ class Solution:
         max_count = list(tasks_count.values()).count(max_tasks)
         res = max(len(tasks), (max_tasks - 1) * (n + 1) + max_count)
         return res
+
     def findPeakElement(self, nums: List[int]) -> int:
         l, r = 0, len(nums) - 1
         while l < r:
-            mid = (l + r)//2
-            if nums[mid] > nums[mid+1]:
+            mid = (l + r) // 2
+            if nums[mid] > nums[mid + 1]:
                 r = mid
             else:
-                l = mid+1
+                l = mid + 1
         return l
+
     def successfulPairs(self, spells: List[int], potions: List[int], success: int) -> List[int]:
         n, m = len(spells), len(potions)
         potions.sort()
@@ -1777,6 +1827,8 @@ class DoubleListNode:
         self.prev = prev
         self.next = next
         self.key = key
+
+
 class LRUCache:
 
     def __init__(self, capacity: int):
