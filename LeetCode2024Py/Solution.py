@@ -19,7 +19,14 @@ class ListNode:
 
 
 class Solution:
-
+    def findMaxK(self, nums: List[int]) -> int:
+        res = -1
+        seen = set()
+        for e in nums:
+            if -1 * e in seen:
+                res = max(abs(e), res)
+            seen.add(e)
+        return res if res != -1 else -1
     def reversePrefix(self, word: str, ch: str) -> str:
         for i in range(len(word)):
             if word[i] == ch:
