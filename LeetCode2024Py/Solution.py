@@ -19,6 +19,29 @@ class ListNode:
 
 
 class Solution:
+    def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if not head:
+            return head
+        stack = []
+        curr = head
+        while curr:
+            stack.append(curr)
+            curr = curr.next
+        carry = 0
+        prev = None
+        while stack:
+            c = stack.pop()
+            v = (c.val + c.val + carry) % 10
+            carry = (c.val + c.val + carry) // 10
+            node = ListNode(val=v)
+            node.next = prev
+            prev = node
+        if carry != 0:
+            new_node = ListNode(val=carry)
+            new_node.next = prev
+            return new_node
+        else:
+            return prev
     def deleteNode(self, node):
         """
         :type node: ListNode
