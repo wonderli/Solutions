@@ -19,6 +19,14 @@ class ListNode:
 
 
 class Solution:
+    def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
+        res = 0
+        happiness.sort(reverse=True)
+        count = 0
+        for i in range(k):
+            res += max(happiness[i] - count, 0)
+            count += 1
+        return res
     def doubleIt(self, head: Optional[ListNode]) -> Optional[ListNode]:
         if not head:
             return head
