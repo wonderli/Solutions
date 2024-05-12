@@ -19,6 +19,19 @@ class ListNode:
 
 
 class Solution:
+    def largestLocal(self, grid: List[List[int]]) -> List[List[int]]:
+        n = len(grid)
+        res = [[0 for _ in range(n - 2)] for _ in range(n - 2)]
+
+        for i in range(n - 2):
+            for j in range(n - 2):
+                max_value = 0
+                for di in range(3):
+                    for dj in range(3):
+                        max_value = max(max_value, grid[i + di][j + dj])
+                res[i][j] = max_value
+
+        return res
     def maximumHappinessSum(self, happiness: List[int], k: int) -> int:
         res = 0
         happiness.sort(reverse=True)
