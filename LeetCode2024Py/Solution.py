@@ -24,6 +24,26 @@ class Node:
         self.next = next
 
 class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+
+        if not root:
+            return
+
+        def helper(node: Optional[TreeNode]) -> Optional[TreeNode]:
+            if not node:
+                return None
+            left_tail = helper(node.left)
+            right_tail = helper(node.right)
+            if left_tail:
+                left_tail.right = node.right
+                node.right = node.left
+                node.left = None
+            return right_tail if right_tail else left_tail if left_tail else node
+
+        helper(root)
     def connect(self, root: 'Node') -> 'Node':
         if not root:
             return None
