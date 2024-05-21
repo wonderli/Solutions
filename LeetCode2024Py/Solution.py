@@ -24,6 +24,21 @@ class Node:
         self.next = next
 
 class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        def compute_height(node: Optional[TreeNode]) -> int:
+            height = 0
+            while node:
+                height += 1
+                node = node.left
+            return height
+        left_height = compute_height(root.left)
+        right_height = compute_height(root.right)
+        if left_height == right_height:
+            return (1 << left_height) + self.countNodes(root.right)
+        else:
+            return (1 << right_height) + self.countNodes(root.left)
     def maxPathSum(self, root: Optional[TreeNode]) -> int:
         self.max_sum = float('-inf')
         def max_gain(node: Optional[TreeNode]):
