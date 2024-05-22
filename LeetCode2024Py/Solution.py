@@ -24,6 +24,23 @@ class Node:
         self.next = next
 
 class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        queue = deque([root])
+        result = []
+        while queue:
+            size = len(queue)
+            level = []
+            for _ in range(size):
+                curr = queue.popleft()
+                level.append(curr.val)
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+            result.append(level)
+        return result
     def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
         if not root:
             return []
