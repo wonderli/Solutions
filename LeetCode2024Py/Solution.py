@@ -24,6 +24,33 @@ class Node:
         self.next = next
 
 class Solution:
+    def wordPatternMatch(self, pattern: str, s: str) -> bool:
+        def backtrack(p_index: int, s_index: int, p_to_s: dict, s_to_p: dict) -> bool:
+            if p_index == len(pattern) and s_index == len(s):
+                return True
+            if p_index == len(pattern) or s_index == len(s):
+                return False
+            pattern_char = pattern[p_index]
+            for end in range(s_index + 1, len(s) + 1):
+                substring = s[s_index:end]
+                if pattern_char in p_to_s:
+                    if p_to_s[pattern_char] != substring:
+                        continue
+                    if backtrack(p_index + 1, s_index + len(substring), p_to_s, s_to_p):
+                        return True
+                elif substring in s_to_p:
+                    continue
+                else:
+                    p_to_s[pattern_char] = substring
+                    s_to_p[substring] = pattern_char
+
+                    if backtrack(p_index + 1, s_index + len(substring), p_to_s, s_to_p):
+                        return True
+                    del p_to_s[pattern_char]
+                    del s_to_p[substring]
+            return False
+
+        return backtrack(0, 0, {}, {})
     def partition(self, s: str) -> List[List[str]]:
         def is_palindrome(s: str) -> bool:
             return s == s[::-1]
