@@ -24,6 +24,22 @@ class Node:
         self.next = next
 
 class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if not root:
+            return []
+        queue = deque([root])
+        result = []
+        while queue:
+            size = len(queue)
+            for i in range(size):
+                curr = queue.popleft()
+                if i == size - 1:
+                    result.append(curr.val)
+                if curr.left:
+                    queue.append(curr.left)
+                if curr.right:
+                    queue.append(curr.right)
+        return result
     def wordPatternMatch(self, pattern: str, s: str) -> bool:
         def backtrack(p_index: int, s_index: int, p_to_s: dict, s_to_p: dict) -> bool:
             if p_index == len(pattern) and s_index == len(s):
