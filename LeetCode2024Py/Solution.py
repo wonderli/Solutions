@@ -24,6 +24,24 @@ class Node:
         self.next = next
 
 class Solution:
+    def partition(self, s: str) -> List[List[str]]:
+        def is_palindrome(s: str) -> bool:
+            return s == s[::-1]
+
+        def helper(s: str, start: int, path: List[str], result: List[List[str]]):
+            if start == len(s):
+                result.append(path[:])
+                return
+            for end in range(start + 1, len(s) + 1):
+                sub_string = s[start:end]
+                if is_palindrome(sub_string):
+                    path.append(sub_string)
+                    helper(s, end, path, result)
+                    path.pop()
+
+        result = []
+        helper(s, 0, [], result)
+        return result
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
         if not root or root == p or root == q:
             return root
