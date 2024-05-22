@@ -24,7 +24,21 @@ class Node:
         self.next = next
 
 class Solution:
-
+    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
+        stack = []
+        prev = None
+        diff = float('inf')
+        curr = root
+        while stack or curr:
+            while curr:
+                stack.append(curr)
+                curr = curr.left
+            curr = stack.pop()
+            if prev is not None:
+                diff = min(diff, abs(prev.val - curr.val))
+            prev = curr
+            curr = curr.right
+        return diff
     def zigzagLevelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
         if not root:
             return []
