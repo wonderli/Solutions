@@ -24,6 +24,34 @@ class Node:
         self.next = next
 
 class Solution:
+    def maxScoreWords(self, words: List[str], letters: List[str], score: List[int]) -> int:
+        def count_letters(word: str):
+            return Counter(word)
+
+        def word_score(word: str):
+            return sum(score[ord(c) - ord('a')] for c in word)
+
+        def can_form(word_count: Dict[str, int], letters_count: Counter) -> bool:
+            for letter, cnt in word_count.items():
+                if letters_count[letter] < cnt:
+                    return False
+            return True
+
+        def backtrack(index: int, letters_count: Counter) -> int:
+            if index == len(words):
+                return 0
+            max_score = backtrack(index + 1, letters_count)
+            word_count = count_letters(words[index])
+            if can_form(word_count, letters_count):
+                for letter, cnt in word_count.items():
+                    letters_count[letter] -= cnt
+                max_score = max(max_score, word_score(words[index]) + backtrack(index + 1, letters_count))
+                for letter, cnt in word_count.items():
+                    letters_count[letter] += cnt
+            return max_score
+
+        letters_count = Counter(letters)
+        return backtrack(0, letters_count)
     def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
         stack = []
         prev = None
