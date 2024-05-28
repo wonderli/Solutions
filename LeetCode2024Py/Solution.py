@@ -24,6 +24,20 @@ class Node:
         self.next = next
 
 class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        def helper(node: Optional[TreeNode], lower: float, upper: float) -> bool:
+            if not node:
+                return True
+            val = node.val
+            if val <= lower or val >= upper:
+                return False
+            if not helper(node.left, lower, val):
+                return False
+            if not helper(node.right, val, upper):
+                return False
+            return True
+
+        return helper(root, float('-inf'), float('inf'))
     def equalSubstring(self, s: str, t: str, maxCost: int) -> int:
         l = 0
         res = 0
