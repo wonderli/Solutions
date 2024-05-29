@@ -24,6 +24,16 @@ class Node:
         self.next = next
 
 class Solution:
+    def kthLuckyNumber(self, k: int) -> str:
+        bin_num = []
+        while k > 0:
+            bin_num.append(str((k-1)%2))
+            k = (k-1)//2
+        map = {'0': '4', '1': '7'}
+        res = []
+        for e in range(len(bin_num) - 1, -1, -1):
+            res.append(map[bin_num[e]])
+        return "".join(res)
     def isValidBST(self, root: Optional[TreeNode]) -> bool:
         def helper(node: Optional[TreeNode], lower: float, upper: float) -> bool:
             if not node:
