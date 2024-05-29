@@ -24,6 +24,24 @@ class Node:
         self.next = next
 
 class Solution:
+
+    def numSteps(self, s: str) -> int:
+        s_list = list(s)
+        steps = 0
+        while len(s_list) > 1:
+            if s_list[-1] == '0':
+                s_list.pop()
+            else:
+                i = len(s_list) - 1
+                while i >= 0 and s_list[i] == '1':
+                    s_list[i] = '0'
+                    i -= 1
+                if i < 0:
+                    s_list.insert(0, '1')
+                else:
+                    s_list[i] = '1'
+            steps += 1
+        return steps
     def kthLuckyNumber(self, k: int) -> str:
         bin_num = []
         while k > 0:
