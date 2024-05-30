@@ -24,6 +24,32 @@ class Node:
         self.next = next
 
 class Solution:
+    def calcEquation(self, equations: List[List[str]], values: List[float], queries: List[List[str]]) -> List[float]:
+        graph = defaultdict(dict)
+        for (A, B), value in zip(equations, values):
+            graph[A][B] = value
+            graph[B][A] = 1 / value
+
+        def bfs(start: str, end: str) -> float:
+            if start not in graph or end not in graph:
+                return -1.0
+            queue = deque([(start, 1.0)])
+            visited = set()
+            while queue:
+                curr, product = queue.popleft()
+                if curr == end:
+                    return product
+                visited.add(curr)
+                for neighbor, value in graph[curr].items():
+                    if neighbor not in visited:
+                        queue.append((neighbor, product * value))
+            return -1.0
+
+        res = []
+        for C, D in queries:
+            result = bfs(C, D)
+            res.append(result)
+        return res
     def numIslands(self, grid: List[List[str]]) -> int:
         m = len(grid)
         n = len(grid[0])
