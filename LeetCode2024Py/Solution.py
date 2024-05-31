@@ -24,6 +24,22 @@ class Node:
         self.next = next
 
 class Solution:
+    def findOrder(self, numCourses: int, prerequisites: List[List[int]]) -> List[int]:
+        graph = defaultdict(list)
+        indegree = [0] * numCourses
+        for course, prerequisite in prerequisites:
+            graph[prerequisite].append(course)
+            indegree[course] += 1
+        result = []
+        queue = deque([i for i in range(numCourses) if indegree[i] == 0])
+        while queue:
+            curr = queue.popleft()
+            result.append(curr)
+            for next_course in graph[curr]:
+                indegree[next_course] -= 1
+                if indegree[next_course] == 0:
+                    queue.append(next_course)
+        return [] if len(result) != numCourses else result
     def singleNumber(self, nums: List[int]) -> List[int]:
         xor = 0
         for num in nums:
