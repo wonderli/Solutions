@@ -24,6 +24,19 @@ class Node:
         self.next = next
 
 class Solution:
+    def longestPalindrome(self, s: str) -> int:
+        char_count = collections.Counter(s)
+        length = 0
+        odd_found = False
+        for count in char_count.values():
+            if count %2 == 0:
+                length += count
+            else:
+                length += count -  1
+                odd_found = True
+        if odd_found:
+            length += 1
+        return length
     def appendCharacters(self, s: str, t: str) -> int:
         s_len = len(s)
         t_len = len(t)
