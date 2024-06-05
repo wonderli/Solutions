@@ -24,6 +24,20 @@ class Node:
         self.next = next
 
 class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        if not digits:
+            return []
+        pad = {"2": "abc", "3": "def", "4": "ghi", "5": "jkl", "6": "mno", "7": "pqrs", "8": "tuv", "9":"wxyz"}
+        res = []
+        def helper(index: int, curr: str):
+            if index == len(digits):
+                res.append(curr)
+                return
+            letters= pad[digits[index]]
+            for letter in letters:
+                helper(index + 1, curr + letter)
+        helper(0, "")
+        return res
     def longestPalindrome(self, s: str) -> int:
         char_count = collections.Counter(s)
         length = 0
