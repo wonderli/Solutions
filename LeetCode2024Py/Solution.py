@@ -24,6 +24,20 @@ class Node:
         self.next = next
 
 class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        if not nums:
+            return []
+        def backtrack(remaining: list[int]) -> List[List[int]]:
+            if not remaining:
+                return [[]]
+            res = []
+            for i in range(len(remaining)):
+                num = remaining[i]
+                next_remaining = remaining[:i] + remaining[i+1:]
+                for p in backtrack(next_remaining):
+                    res.append([num] + p)
+            return res
+        return backtrack(nums)
     def letterCombinations(self, digits: str) -> List[str]:
         if not digits:
             return []
