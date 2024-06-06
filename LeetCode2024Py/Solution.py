@@ -24,6 +24,26 @@ class Node:
         self.next = next
 
 class Solution:
+
+    def totalNQueens(self, n: int) -> int:
+        cols = [False] * n
+        diag1 = [False] * (2 * n - 1)
+        diag2 = [False] * (2 * n - 1)
+        count = 0
+
+        def backtrack(row: int):
+            nonlocal count
+            if row == n:
+                count += 1
+                return
+            for col in range(n):
+                if not cols[col] and not diag1[row - col + n - 1] and not diag2[row + col]:
+                    cols[col] = diag1[row - col + n - 1] = diag2[row + col] = True
+                    backtrack(row + 1)
+                    cols[col] = diag1[row - col + n - 1] = diag2[row + col] = False
+
+        backtrack(0)
+        return count
     def permute(self, nums: List[int]) -> List[List[int]]:
         if not nums:
             return []
