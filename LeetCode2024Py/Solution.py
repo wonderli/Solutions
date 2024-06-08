@@ -24,7 +24,31 @@ class Node:
         self.next = next
 
 class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        def helper(left: int, right: int) -> Optional[TreeNode]:
+            if left > right:
+                return None
+            mid = left + (right - left)//2
+            node = TreeNode(val = nums[mid])
+            node.left = helper(left, mid - 1)
+            node.right = helper(mid+1, right)
+            return node
+        return helper(0, len(nums)-1)
 
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+
+        def backtrack(curr: str, open: int, close: int):
+            if len(curr) == 2 * n:
+                res.append(curr)
+                return
+            if open < n:
+                backtrack(curr + "(", open + 1, close)
+            if close < open:
+                backtrack(curr + ")", open, close + 1)
+
+        backtrack("", 0, 0)
+        return res
     def totalNQueens(self, n: int) -> int:
         def backtrack(col: int):
             if col == n:
