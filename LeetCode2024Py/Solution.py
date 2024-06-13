@@ -24,6 +24,16 @@ class Node:
         self.next = next
 
 class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        res = []
+        carry = 1
+        curr = 1
+        for digit in digits[::-1]:
+            res.append((digit + carry)%10)
+            carry = (digit + carry)//10
+        if carry == 1:
+            res.append(1)
+        return res[::-1]
     def relativeSortArray(self, arr1: List[int], arr2: List[int]) -> List[int]:
         count = Counter(arr1)
         result = []
