@@ -25,6 +25,37 @@ class Node:
 
 class Solution:
 
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        m = len(str1)
+        n = len(str2)
+
+        def gcd(a, b):
+            if b == 0:
+                return a
+            return gcd(b, a % b)
+
+        if str1 + str2 != str2 + str1:
+            return ""
+        gcd_len = gcd(m, n)
+        return str1[:gcd_len]
+    
+    def maxProfit(self, prices: List[int]) -> int:
+        if not prices:
+        return 0
+
+        # 初始化四个变量
+        buy1, sell1 = float('-inf'), 0
+        buy2, sell2 = float('-inf'), 0
+
+        for price in prices:
+            # 更新四个状态
+            buy1 = max(buy1, -price)      # 第一次买入
+            sell1 = max(sell1, buy1 + price)  # 第一次卖出
+            buy2 = max(buy2, sell1 - price)   # 第二次买入
+            sell2 = max(sell2, buy2 + price)  # 第二次卖出
+
+        return sell2
+
     def maxProfitAssignment(self, difficulty: List[int], profit: List[int], worker: List[int]) -> int:
         worker.sort()
         jobs = sorted(zip(difficulty, profit))
